@@ -36,20 +36,20 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 .page-wrap { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 0 24px 80px; }
-.hero { position: relative; padding: 64px 0 52px; overflow: hidden; animation: fadeDown 0.8s ease both; }
-.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 50% -10%, rgba(42,122,59,0.06) 0%, transparent 70%); pointer-events: none; }
+.hero { position: relative; padding: 56px 40px 44px; overflow: hidden; animation: fadeDown 0.8s ease both; background: linear-gradient(135deg, #2A7A3B 0%, #1F6030 100%); color: #fff; border-radius: 12px; margin: 24px 0; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 70%); pointer-events: none; }
 .hero-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.4) 70%, transparent); }
-.hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
-.hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
-.hero-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2em, 5vw, 3.2em); font-weight: 700; line-height: 1.1; color: var(--text); letter-spacing: -0.02em; }
-.hero-title em { font-style: italic; color: var(--gold-light); }
-.hero-divider { height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin: 28px 0; width: 60%; }
+.hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: rgba(255,255,255,0.6); }
+.hero-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2em, 5vw, 3.2em); font-weight: 700; line-height: 1.1; color: #fff; letter-spacing: -0.02em; }
+.hero-title em { font-style: italic; color: #C5E8A0; }
+.hero-divider { height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.6), transparent); margin: 28px 0; width: 60%; }
 .hero-meta { display: flex; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
-.hero-report-date { font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; color: var(--text-2); display: block; margin-top: 20px; padding-left: 4px; }
-.hero-report-date strong { color: var(--text); font-weight: 600; }
+.hero-report-date { font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; color: rgba(255,255,255,0.85); display: block; margin-top: 20px; padding-left: 4px; }
+.hero-report-date strong { color: #fff; font-weight: 600; }
 .hero-insights { list-style: none; display: flex; flex-direction: column; gap: 9px; padding: 0; margin: 0; max-width: 580px; }
-.hero-insights li { font-size: 0.88em; color: var(--text-2); padding-left: 20px; position: relative; line-height: 1.55; }
-.hero-insights li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+.hero-insights li { font-size: 0.88em; color: rgba(255,255,255,0.92); padding-left: 20px; position: relative; line-height: 1.55; }
+.hero-insights li::before { content: '—'; position: absolute; left: 0; color: #C5E8A0; font-weight: 700; }
 .nav-strip { position: sticky; top: 0; z-index: 100; background: rgba(245,247,245,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0; margin: 0 -24px; animation: fadeDown 0.9s ease both; }
 .nav-inner { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; gap: 0; }
 .nav-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--text-3); padding: 14px 20px; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
@@ -116,8 +116,8 @@ li.article-item.oculto { display: none; }
 .badge-neg  { background: var(--neg-bg); color: var(--neg); border: 1px solid rgba(224,85,85,0.3); }
 .badge-adec { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(208,249,33,0.25); font-size: 0.6em; }
 .platform-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.65em; font-weight: 600; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 2px; color: #fff; }
-.article-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; text-decoration: none; transition: opacity 0.2s; display: inline-flex; align-items: center; gap: 4px; }
-.article-link:hover { opacity: 0.7; }
+.article-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.62em; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border: 1px solid currentColor; border-radius: 999px; opacity: 0.9; }
+.article-link:hover { opacity: 1; transform: translateY(-1px); }
 .feedback-bar { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); display: flex; gap: 6px; align-items: center; }
 .feedback-bar::before { content: 'Fue util?'; color: var(--text-2); font-size: 0.72em; margin-right: 4px; opacity: 0.7; }
 .thumb { background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 2px 10px; cursor: pointer; font-size: 0.95em; line-height: 1; transition: all 0.15s; }
@@ -152,7 +152,7 @@ li.article-item.oculto { display: none; }
     <h1 class="hero-title">Reporte <em>Adecoagro</em></h1>
     <p class="hero-report-date">Fecha del Reporte: <strong>29 de julio de 2026</strong></p>
     <div class="hero-divider"></div>
-    <ul class="hero-insights"><li>Adecoagro compra un ingenio por US$148 millones, convirtiendo la crisis de un rival en crecimiento inmediato.</li><li>Profertil invierte $13.000 millones en el puerto de Bahía Blanca para potenciar su hub energético e industrial.</li><li>Récord: la actividad agropecuaria creció un 3% en junio y alcanzó un nuevo máximo histórico.</li></ul>
+    <ul class="hero-insights"><li>Adecoagro compra ingenio por US$148 millones y convierte la crisis de un rival en crecimiento inmediato.</li><li>Puerto de Bahía Blanca: invierten $13.000 millones en sus accesos viales para potenciar su gran hub energético e industrial.</li><li>Récord: la actividad agropecuaria creció un 3% en junio y alcanzó un nuevo máximo histórico.</li></ul>
   </div>
 </div>
 <nav class="nav-strip">
@@ -160,7 +160,7 @@ li.article-item.oculto { display: none; }
     <a href="#sec-noticias" class="nav-link">&#128240; Noticias (2)</a>
     <a href="#sec-social"   class="nav-link">&#128241; Redes (1)</a>
     <a href="#sec-empresas" class="nav-link">&#127970; Empresas (3)</a>
-    <a href="#sec-sector"   class="nav-link">&#127807; Sector (46)</a>
+    <a href="#sec-sector"   class="nav-link">&#127807; Sector (50)</a>
   </div>
 </nav>
 <div class="page-wrap">
@@ -171,7 +171,7 @@ li.article-item.oculto { display: none; }
       <h2 class="section-title">Noticias Principales</h2>
       <span class="section-count">2 art&iacute;culos</span>
     </div>
-    <div class="summary-card">Adecoagro ha realizado la compra de un ingenio por US$148 millones, convirtiendo la crisis de un rival en una oportunidad de crecimiento inmediato. Este hecho fue destacado en una noticia reciente de Pulso Capital. Además, se ha mencionado la valoración de Adecoagro en un análisis publicado por simplywall.st, aunque esta se presenta de forma neutra, sin un dato clave específico.</div>
+    <div class="summary-card">Adecoagro realizó la compra de un ingenio por US$148 millones, convirtiendo la crisis de un rival en una oportunidad de crecimiento inmediato. En otras menciones, se discute la valoración de Adecoagro y su conexión con el mercado agropecuario, aunque no se reportan datos relevantes específicos. Además, se analizan las dinámicas geopolíticas y locales que afectan al sector agro en Argentina.</div>
         <div class="dashboard-row">
       <div class="chart-card">
         <div class="chart-card-title">Distribuci&oacute;n de Sentimiento</div>
@@ -207,7 +207,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
     <div class="article-title"><a href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxObFJ0dzdIX3VCWTV0T0ZlWDZqWUhEWTdXSk1EdXdjeW95dU1sWng1bFBuTGstSHEyVWVINENDVV91akVueEdCU3ZZWDhud1Q5dDlEdVFyZmtFOGtmYnRjUFBWcHZJRHI2OUtyMHhkZEFoa2s1WXZHVF9IMmJZS3hDX0sxdmFRQjBxYm84dklwRm5nYnVXSTFGbWRqRDZ5eDZWUklLbUt3UVVvbGlvQ01VY1pQNV82RnRuNXJvMGZNMk5BVVV2QnFPMXFPMG5VOTRVMkxKZHJ30gHbAUFVX3lxTE56MU40Qm5XSzBuM0xMRzhmTEd3NzdXY3ZKY0xwMndNWG9BQTZOX2pnbm56U3E0TURYc2NURVAtNVRVdUVOa2N6VGsyUGM0SDUydE1Eay1vTFpGV1Bhb2JvQ1NMZW1mSVBtNWxVc1kxZ1Z6YTZYSUpaNHYtdUJYSWNKSkQwQVlhclowZkZLNl9hYmFPYVVrcldLYUtkbDRCaTFWUndyMW5ic1hXaHdKTy1ka1pDWWZZeWoxWHBoUHYwN2M2VEZFRmF6NWwzMnZxWm1vaU5jZ3BjYTc0Zw?oc=5" target="_blank">Adecoagro (AGRO) Faces A Valuation Split, Is It A Bargain Or Fully Priced? - simplywall.st</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 06:26:37 GMT &middot; Google News</span>
+      <span class="article-time">Wed, 29 Jul 2026 06:26:37 GMT &middot; Simply Wall St</span>
       <span class="badge badge-neu">Neutro</span>
       <span class="badge badge-adec">ADECOAGRO</span>
     </div>
@@ -273,7 +273,7 @@ li.article-item.oculto { display: none; }
       <h2 class="section-title">Empresas Asociadas</h2>
       <span class="section-count">3 art&iacute;culos &middot; 1 empresas</span>
     </div>
-    <div class="summary-card">Profertil y otras empresas han tenido una cobertura positiva reciente. Profertil fue mencionada en relación con una inversión de $13.000 millones en el puerto de Bahía Blanca, así como en iniciativas de AgTech y la llegada de un gigante alemán interesado en el negocio de fertilizantes.</div>
+    <div class="summary-card">Profertil se asocia a Adecoagro en el contexto de inversiones de $13.000 millones en el Puerto de Bahía Blanca y el lanzamiento de nuevas iniciativas innovadoras en el sector agro. También se reporta sobre el interés de una empresa alemana en el negocio de los fertilizantes, lo que puede beneficiar a Profertil.</div>
         <div class="dashboard-row">
       <div class="chart-card">
         <div class="chart-card-title">Distribuci&oacute;n de Sentimiento</div>
@@ -308,7 +308,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="emp">
     <div class="article-title"><a href="https://portalagropecuario.com.ar/nace-los-50-agtech-argentina-innovacion-agroalimentaria/" target="_blank">Nace Los 50 AgTech de Argentina, el Board de Expertos ...</a></div>
     <div class="article-meta">
-      <span class="article-time">hace 15 horas &middot; Portal Agropecuario</span>
+      <span class="article-time">hace 16 horas &middot; Portal Agropecuario</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -321,7 +321,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="emp">
     <div class="article-title"><a href="https://actualidad.com.ar/un-gigante-de-alemania-se-acerca-a-la-argentina-quiere-fabricar-un-submarino-y-meterse-en-el-negocio-de-los-fertilizantes/" target="_blank">Un gigante de Alemania se acerca a la Argentina</a></div>
     <div class="article-meta">
-      <span class="article-time">hace 17 horas &middot; Actualidad</span>
+      <span class="article-time">hace 18 horas &middot; Actualidad</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -342,9 +342,9 @@ li.article-item.oculto { display: none; }
     <div class="section-header">
       <span class="section-icon">&#127807;</span>
       <h2 class="section-title">Sector Agro</h2>
-      <span class="section-count">46 art&iacute;culos</span>
+      <span class="section-count">50 art&iacute;culos</span>
     </div>
-    <div class="summary-card">En el sector agropecuario, se han reportado varios temas importantes. Se citan lamentos por la baja rentabilidad del campo y una actualización de normas para envases de alimentos. También se destaca un récord en el crecimiento de la actividad agropecuaria, que creció un 3% en junio, alcanzando un nuevo máximo histórico.</div>
+    <div class="summary-card">La actividad en el sector agro presenta un panorama variado: mientras algunos agricultores enfrentan problemas de rentabilidad, hay reportes de un crecimiento del 3% en la actividad agropecuaria en junio. Adicionalmente, se discuten las oportunidades que presenta el 'año Niño' para el rendimiento agrícola.</div>
     <div class="dashboard-row">
       <div class="chart-card">
         <div class="chart-card-title">Distribuci&oacute;n de Sentimiento</div>
@@ -352,13 +352,13 @@ li.article-item.oculto { display: none; }
       </div>
     </div>
     <details class="accordion" style="margin-top:20px">
-      <summary>Ver 46 art&iacute;culos <span class="accordion-arrow">&#9660;</span></summary>
+      <summary>Ver 50 art&iacute;culos <span class="accordion-arrow">&#9660;</span></summary>
       <div class="accordion-body">
         <div class="filter-bar">
-          <button class="filter-btn filter-btn-all active" onclick="filtrar('sec','all',this)">Todos (46)</button>
-          <button class="filter-btn filter-btn-pos" onclick="filtrar('sec','positivo',this)">Positivo (17)</button>
-          <button class="filter-btn filter-btn-neu" onclick="filtrar('sec','neutro',this)">Neutro (15)</button>
-          <button class="filter-btn filter-btn-neg" onclick="filtrar('sec','negativo',this)">Negativo (14)</button>
+          <button class="filter-btn filter-btn-all active" onclick="filtrar('sec','all',this)">Todos (50)</button>
+          <button class="filter-btn filter-btn-pos" onclick="filtrar('sec','positivo',this)">Positivo (25)</button>
+          <button class="filter-btn filter-btn-neu" onclick="filtrar('sec','neutro',this)">Neutro (12)</button>
+          <button class="filter-btn filter-btn-neg" onclick="filtrar('sec','negativo',this)">Negativo (13)</button>
         </div>
         <ul class="article-list"><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://bichosdecampo.com/nacieron-hace-pocos-meses-importan-yerba-desde-brasil-tienen-su-propia-receta-y-ya-ganaron-el-primer-mundial-la-historia-de-dos-entrerrianas-que-apostaron-por-el-mate-estilo-uruguayo/" target="_blank">Nacieron hace pocos meses, importan yerba desde Brasil, tienen su propia receta, y ya ganaron el primer mundial: La historia de dos entrerrianas que apostaron por el mate estilo uruguayo</a></div>
@@ -374,9 +374,48 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://bichosdecampo.com/nacieron-hace-pocos-meses-importan-yerba-desde-brasil-tienen-su-propia-receta-y-ya-ganaron-el-primer-mundial-la-historia-de-dos-entrerrianas-que-apostaron-por-el-mate-estilo-uruguayo/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.infocampo.com.ar/una-nueva-tecnologia-despega-en-nuestra-red-otra-marca-de-maquinaria-suma-la-venta-de-drones/" target="_blank">“Una nueva tecnología despega en nuestra red”: otra marca de maquinaria suma la venta de drones</a></div>
+    <div class="article-meta">
+      <span class="article-time">Wed, 29 Jul 2026 13:28:15 +0000 &middot; Infocampo</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.infocampo.com.ar/una-nueva-tecnologia-despega-en-nuestra-red-otra-marca-de-maquinaria-suma-la-venta-de-drones/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.infocampo.com.ar/una-nueva-tecnologia-despega-en-nuestra-red-otra-marca-de-maquinaria-suma-la-venta-de-drones/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.infocampo.com.ar/una-nueva-tecnologia-despega-en-nuestra-red-otra-marca-de-maquinaria-suma-la-venta-de-drones/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.noticiasagropecuarias.com/2026/07/28/congreso-aapresid-las-rondas-de-negocios-vuelven-para-conectar-innovacion-e-inversiones/" target="_blank">Congreso Aapresid: las Rondas de Negocios vuelven para conectar innovación e inversiones</a></div>
+    <div class="article-meta">
+      <span class="article-time">Tue, 28 Jul 2026 20:15:08 +0000 &middot; Noticias Agropecuarias</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.noticiasagropecuarias.com/2026/07/28/congreso-aapresid-las-rondas-de-negocios-vuelven-para-conectar-innovacion-e-inversiones/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.noticiasagropecuarias.com/2026/07/28/congreso-aapresid-las-rondas-de-negocios-vuelven-para-conectar-innovacion-e-inversiones/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.noticiasagropecuarias.com/2026/07/28/congreso-aapresid-las-rondas-de-negocios-vuelven-para-conectar-innovacion-e-inversiones/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" target="_blank">El verdadero protagonista</a></div>
+    <div class="article-meta">
+      <span class="article-time">Hoy &middot; Clarin</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/claves-aprovechar-ano-nino-obtener-maximos-rindes-soja_0_UOr02Kj9ug.html" target="_blank">Cuáles son las claves para aprovechar un año Niño y obtener los máximos rindes en soja</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -389,7 +428,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/europa-parece-ahora-querer-impulsar-ganaderia-vez-impedirla_0_GMwgc1RbEp.html" target="_blank">Europa parece ahora querer impulsar la ganadería en vez de impedirla</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -402,7 +441,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/arriba-vientecillo-buzo_0_VFYOEpaR7Y.html" target="_blank">Para arriba, como vientecillo de buzo</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -415,7 +454,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/ovejas-pasion-transmite-exporta_0_UtoGpL7rm1.html" target="_blank">Las ovejas también son una pasión que se transmite y que se exporta</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -428,7 +467,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/negocio-premium-secretos-empresa-familiar-produce-1000-novillos-pesados-ano-exportar-carne-union-europea_0_Uz8rYydOXk.html" target="_blank">Negocio premium: los secretos de una empresa familiar que produce más de 1.000 novillos pesados por año para exportar carne a la Unión Europea</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -441,7 +480,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/rolando-meninato-trayectoria-ligada-agro-emprendedurismo-sector_0_QmGGdZJDR6.html" target="_blank">Rolando Meninato, una trayectoria ligada al agro y al emprendedurismo en el sector</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -454,7 +493,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/tras-259-dias-de-conflicto-reabre-un-frigorifico-y-busca-recuperar-todos-los-puestos-de-trabajo-nid28072026/" target="_blank">Tras 259 días de conflicto: reabre un frigorífico y buscan recuperar todos los puestos de trabajo</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 11:50:20 +0000 &middot; La Nación</span>
+      <span class="article-time">Wed, 29 Jul 2026 11:50:20 +0000 &middot; La Nacion</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -467,7 +506,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/un-productor-produjo-mucha-mas-carne-con-una-abrupta-caida-de-la-huella-ambiental-y-el-caso-es-clave-nid28072026/" target="_blank">En un campo produjeron un 70,8% más de carne con una abrupta caída de la huella ambiental y el caso abre la puerta a un mercado digital</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 11:48:31 +0000 &middot; La Nación</span>
+      <span class="article-time">Wed, 29 Jul 2026 11:48:31 +0000 &middot; La Nacion</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -478,22 +517,9 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/un-productor-produjo-mucha-mas-carne-con-una-abrupta-caida-de-la-huella-ambiental-y-el-caso-es-clave-nid28072026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
-    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" target="_blank">Récord: la actividad agropecuaria creció un 3% en junio y alcanzó un nuevo máximo histórico</a></div>
-    <div class="article-meta">
-      <span class="article-time">Tue, 28 Jul 2026 21:47:06 +0000 &middot; La Nación</span>
-      <span class="badge badge-pos">Positivo</span>
-      
-    </div>
-    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" target="_blank" style="color:var(--text-3);text-decoration:underline">LA NACION</a></div>
-    <a href="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
-  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.ruralprimicias.com.ar/trigo-y-soja-alcanzan-maximos-de-dos-anos-en-chicago/" target="_blank">Trigo y soja alcanzan máximos de dos años en Chicago</a></div>
     <div class="article-meta">
-      <span class="article-time">hace 21 horas &middot; Rural Primicias</span>
+      <span class="article-time">21 hours ago &middot; Rural Primicias</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -506,7 +532,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.infocampo.com.ar/la-revolucion-tecnologica-tambien-llega-a-los-forrajes-y-sera-eje-de-un-nuevo-congreso-en-cordoba/" target="_blank">La revolución tecnológica también llega a los forrajes y ...</a></div>
     <div class="article-meta">
-      <span class="article-time">hace 19 horas &middot; InfoCampo</span>
+      <span class="article-time">hace 19 horas &middot; Infocampo</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -530,9 +556,22 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://www.fenalce.co/noticias-y-multimedia/fenalce-y-ministro-designado-de-agricultura-y-desarrollo-rural-indalecio-dangond-trazan-hoja-de-ruta-para-impulsar-la-productividad-rentabilidad-y-competitividad-de-los-productores-de-cereales-y-le/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.bancoprovincia.com.ar/Noticias/MasNoticias/prestamos-en-dolares-a-tasa-0-para-maquinaria-agricola-bonaerense-la-novedad-de-banco-provincia-en-expoagro-2026-3092" target="_blank">Préstamos en dólares desde tasa 0% para la compra de ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 8 horas &middot; Banco Provincia</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.bancoprovincia.com.ar/Noticias/MasNoticias/prestamos-en-dolares-a-tasa-0-para-maquinaria-agricola-bonaerense-la-novedad-de-banco-provincia-en-expoagro-2026-3092" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.bancoprovincia.com.ar/Noticias/MasNoticias/prestamos-en-dolares-a-tasa-0-para-maquinaria-agricola-bonaerense-la-novedad-de-banco-provincia-en-expoagro-2026-3092" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.bancoprovincia.com.ar/Noticias/MasNoticias/prestamos-en-dolares-a-tasa-0-para-maquinaria-agricola-bonaerense-la-novedad-de-banco-provincia-en-expoagro-2026-3092" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/nueva-oportunidad-maiz-clima-genetica-juegan-favor_0_mCpkpPXwQO.html" target="_blank">Nueva oportunidad para el maíz: cuando el clima y la genética juegan a favor</a></div>
     <div class="article-meta">
-      <span class="article-time">2026-07-29T12:21:02Z &middot; Clarín</span>
+      <span class="article-time">2026-07-29T12:21:02Z &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -545,7 +584,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/nuevas-opciones-acelerar-adopcion-drones-agro-argentino_0_sLt7yWkUiS.html" target="_blank">Nuevas opciones para acelerar la adopción de drones en el agro argentino</a></div>
     <div class="article-meta">
-      <span class="article-time">2026-07-29T12:16:31Z &middot; Clarín</span>
+      <span class="article-time">2026-07-29T12:16:31Z &middot; Clarin</span>
       <span class="badge badge-pos">Positivo</span>
       
     </div>
@@ -554,6 +593,32 @@ li.article-item.oculto { display: none; }
     <div class="feedback-bar">
   <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/nuevas-opciones-acelerar-adopcion-drones-agro-argentino_0_sLt7yWkUiS.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
   <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/nuevas-opciones-acelerar-adopcion-drones-agro-argentino_0_sLt7yWkUiS.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" target="_blank">Medida oficial en Nueva York: Mamdani confirma que carnes, lácteos y huevos tendrán nuevo descuento en los supermercados municipales y estimó cuánto ahorrarán las familias</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-07-28T12:28:57Z &middot; Clarin</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" target="_blank">Récord: la actividad agropecuaria creció un 3% en junio y alcanzó un nuevo máximo histórico</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-07-28T21:47:06.504Z &middot; La Nacion</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/record-la-actividad-agropecuaria-crecio-un-3-en-junio-y-alcanzo-un-nuevo-maximo-historico-nid28072026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.iprofesional.com/negocios/461038-familia-emblematica-del-agronegocio-reactiva-planta-clave-y-generara-decenas-de-empleos" target="_blank">Familia emblemática del agronegocio reactiva planta clave y generará decenas de empleos</a></div>
@@ -567,6 +632,45 @@ li.article-item.oculto { display: none; }
     <div class="feedback-bar">
   <button class="thumb thumb-up"   data-url="https://www.iprofesional.com/negocios/461038-familia-emblematica-del-agronegocio-reactiva-planta-clave-y-generara-decenas-de-empleos" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
   <button class="thumb thumb-down" data-url="https://www.iprofesional.com/negocios/461038-familia-emblematica-del-agronegocio-reactiva-planta-clave-y-generara-decenas-de-empleos" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" target="_blank">De la Ley de Semillas al encuentro con Milei: la activa agenda de la Juventud de Coninagro</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-07-28T17:17:51-03:00 &middot; TN</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" target="_blank">El petróleo crudo desplazó al maíz y la soja y ya es el principal producto de exportación argentino</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-07-28T13:11:00Z &middot; Ámbito</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" target="_blank">El gigante de los ascensores ahora mira armamento, minería y fertilizantes</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-07-29T12:07:55.021Z &middot; Cronista</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
     <div class="article-title"><a href="https://www.cronista.com/economia-politica/cosecha-record-como-impacta-de-el-nino-en-el-ingreso-de-dolares-del-campo/" target="_blank">Cosecha récord: cómo impacta “El Niño” en el ingreso de dólares del campo</a></div>
@@ -610,7 +714,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://www.infocampo.com.ar/clima-en-corrientes-hoy-29-julio-2026/" target="_blank">Clima en Corrientes hoy 29 julio 2026</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 09:00:15 +0000 &middot; InfoCampo</span>
+      <span class="article-time">Wed, 29 Jul 2026 09:00:15 +0000 &middot; Infocampo</span>
       <span class="badge badge-neu">Neutro</span>
       
     </div>
@@ -636,7 +740,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/economia/dolar-tarjeta-hoy-cotiza-miercoles-29-julio_0_zoOlNLXOmC.html" target="_blank">Dólar tarjeta hoy: a cuánto cotiza este miércoles 29 de julio</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-neu">Neutro</span>
       
     </div>
@@ -649,7 +753,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/mercado-soja-entra-zona-clave-clima-china-fondos-definen-rumbo_0_0IZhLTPBCw.html" target="_blank">El mercado de soja entra en zona clave: clima, China y fondos definen el rumbo</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-neu">Neutro</span>
       
     </div>
@@ -660,22 +764,9 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/mercado-soja-entra-zona-clave-clima-china-fondos-definen-rumbo_0_0IZhLTPBCw.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
-    <div class="article-title"><a href="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" target="_blank">El verdadero protagonista</a></div>
-    <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
-      <span class="badge badge-neu">Neutro</span>
-      
-    </div>
-    
-    <a href="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/verdadero-protagonista_0_cWJVUQErBJ.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
-  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/el-inesperado-uso-que-tambien-puede-tener-el-tomate-y-que-es-lo-que-hay-que-saber-para-no-fallar-nid29072026/" target="_blank">El inesperado uso que también puede tener el tomate y qué es lo que hay que saber para no fallar</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 11:00:00 +0000 &middot; La Nación</span>
+      <span class="article-time">Wed, 29 Jul 2026 11:00:00 +0000 &middot; La Nacion</span>
       <span class="badge badge-neu">Neutro</span>
       
     </div>
@@ -688,7 +779,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://tendenciadenoticias.com.ar/portalcana/mirande-vamos-a-hacer-todo-lo-posible-para-que-no-quede-un-solo-tallo-sin-moler" target="_blank">Mirande: "Vamos a hacer todo lo posible para que no ...</a></div>
     <div class="article-meta">
-      <span class="article-time">hace 13 horas &middot; Tendencia de Noticias</span>
+      <span class="article-time">13 hours ago &middot; Tendencia de Noticias</span>
       <span class="badge badge-neu">Neutro</span>
       
     </div>
@@ -697,6 +788,19 @@ li.article-item.oculto { display: none; }
     <div class="feedback-bar">
   <button class="thumb thumb-up"   data-url="https://tendenciadenoticias.com.ar/portalcana/mirande-vamos-a-hacer-todo-lo-posible-para-que-no-quede-un-solo-tallo-sin-moler" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
   <button class="thumb thumb-down" data-url="https://tendenciadenoticias.com.ar/portalcana/mirande-vamos-a-hacer-todo-lo-posible-para-que-no-quede-un-solo-tallo-sin-moler" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.gob.mx/cms/uploads/attachment/file/1093845/Pronostico_de_lluvias_a_10_dias_008_julio_2026.pdf" target="_blank">Pronóstico de lluvias - Aviso No. 008 julio 2026</a></div>
+    <div class="article-meta">
+      <span class="article-time">5 hours ago &middot; Gobierno de México</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    
+    <a href="https://www.gob.mx/cms/uploads/attachment/file/1093845/Pronostico_de_lluvias_a_10_dias_008_julio_2026.pdf" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.gob.mx/cms/uploads/attachment/file/1093845/Pronostico_de_lluvias_a_10_dias_008_julio_2026.pdf" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.gob.mx/cms/uploads/attachment/file/1093845/Pronostico_de_lluvias_a_10_dias_008_julio_2026.pdf" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://www.reddit.com/r/AskArgentina/comments/1v9eqs9/d%C3%B3nde_ofrecervender_acciones_de_una_empresa/" target="_blank">¿Dónde ofrecer/vender acciones de una empresa ...</a></div>
@@ -712,22 +816,9 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://www.reddit.com/r/AskArgentina/comments/1v9eqs9/d%C3%B3nde_ofrecervender_acciones_de_una_empresa/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
-    <div class="article-title"><a href="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" target="_blank">Medida oficial en Nueva York: Mamdani confirma que carnes, lácteos y huevos tendrán nuevo descuento en los supermercados municipales y estimó cuánto ahorrarán las familias</a></div>
-    <div class="article-meta">
-      <span class="article-time">2026-07-28T12:28:57Z &middot; Clarín</span>
-      <span class="badge badge-neu">Neutro</span>
-      
-    </div>
-    
-    <a href="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://www.clarin.com/estados-unidos/medida-oficial-nueva-york-mamdani-confirma-carnes-lacteos-huevos-nuevo-descuento-supermercados-municipales-estimo-ahorraran-familias_0_6to4t2riOy.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
-  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/sociedad/la-semilla-seca-y-comestible-que-cuida-y-fortalece-la-masa-muscular-nid28072026/" target="_blank">La semilla, seca y comestible, que cuida y fortalece la masa muscular</a></div>
     <div class="article-meta">
-      <span class="article-time">2026-07-28T23:00:00Z &middot; La Nación</span>
+      <span class="article-time">2026-07-28T23:00:00Z &middot; La Nacion</span>
       <span class="badge badge-neu">Neutro</span>
       
     </div>
@@ -750,36 +841,10 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-up"   data-url="https://tn.com.ar/sociedad/2026/07/28/llevar-semillas-de-calabaza-envueltas-en-papel-aluminio-para-que-sirve-y-por-que-lo-recomienda-el-feng-shui/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
   <button class="thumb thumb-down" data-url="https://tn.com.ar/sociedad/2026/07/28/llevar-semillas-de-calabaza-envueltas-en-papel-aluminio-para-que-sirve-y-por-que-lo-recomienda-el-feng-shui/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
-  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
-    <div class="article-title"><a href="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" target="_blank">De la Ley de Semillas al encuentro con Milei: la activa agenda de la Juventud de Coninagro</a></div>
-    <div class="article-meta">
-      <span class="article-time">2026-07-28T17:17:51-03:00 &middot; TN</span>
-      <span class="badge badge-neu">Neutro</span>
-      
-    </div>
-    
-    <a href="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://tn.com.ar/campo/2026/07/28/de-la-ley-de-semillas-al-encuentro-con-milei-la-activa-agenda-de-la-juventud-de-coninagro/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
-  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
-    <div class="article-title"><a href="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" target="_blank">El gigante de los ascensores ahora mira armamento, minería y fertilizantes</a></div>
-    <div class="article-meta">
-      <span class="article-time">2026-07-29T12:07:55.021Z &middot; Cronista</span>
-      <span class="badge badge-neu">Neutro</span>
-      
-    </div>
-    
-    <a href="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://www.cronista.com/negocios/el-gigante-de-los-ascensores-ahora-mira-armamento-mineria-y-fertilizantes/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.infocampo.com.ar/agricultores-federados-lamentan-la-baja-rentabilidad-el-numero-del-campo-hoy-es-muy-finito/" target="_blank">Agricultores Federados lamentan la baja rentabilidad: “El número del campo hoy es muy finito”</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 11:15:06 +0000 &middot; InfoCampo</span>
+      <span class="article-time">Wed, 29 Jul 2026 11:15:06 +0000 &middot; Infocampo</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -818,7 +883,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/economia/solo-paga-creditos-sacan-billeteras-virtuales_0_yMhmxbWHxx.html" target="_blank">Dos de cada tres préstamos que son irrecuperables son de las billeteras virtuales</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -831,7 +896,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/rural/argentina-enorme-potencial-desaprovechados_0_GXQe4mZZqK.html" target="_blank">“Argentina tiene un enorme potencial, pero es uno de los más desaprovechados”</a></div>
     <div class="article-meta">
-      <span class="article-time">Hoy &middot; Clarín</span>
+      <span class="article-time">Hoy &middot; Clarin</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -844,7 +909,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/es-una-ley-nociva-en-una-provincia-temen-perder-parte-de-su-identidad-productiva-por-un-cambio-que-nid28072026/" target="_blank">“Es una ley nociva”: en una provincia temen perder parte de su identidad productiva por un cambio que impulsa el Gobierno</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 11:53:15 +0000 &middot; La Nación</span>
+      <span class="article-time">Wed, 29 Jul 2026 11:53:15 +0000 &middot; La Nacion</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -857,7 +922,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/mataron-a-tiros-a-siete-ovejas-en-un-campo-bonaerense-y-denuncian-el-avance-de-los-cazadores-nid28072026/" target="_blank">Denuncian una brutal matanza a tiros de ovejas</a></div>
     <div class="article-meta">
-      <span class="article-time">Wed, 29 Jul 2026 11:49:35 +0000 &middot; La Nación</span>
+      <span class="article-time">Wed, 29 Jul 2026 11:49:35 +0000 &middot; La Nacion</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -868,22 +933,9 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/mataron-a-tiros-a-siete-ovejas-en-un-campo-bonaerense-y-denuncian-el-avance-de-los-cazadores-nid28072026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
-    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/tremendo-error-una-camara-frigorifica-le-pidio-al-gobierno-que-no-modifique-los-aportes-obligatorios-nid28072026/" target="_blank">“Tremendo error”: una cámara frigorífica le pidió al Gobierno que no modifique los aportes obligatorios al instituto que promociona la carne</a></div>
-    <div class="article-meta">
-      <span class="article-time">Tue, 28 Jul 2026 20:42:17 +0000 &middot; La Nación</span>
-      <span class="badge badge-neg">Negativo</span>
-      
-    </div>
-    
-    <a href="https://www.lanacion.com.ar/economia/campo/tremendo-error-una-camara-frigorifica-le-pidio-al-gobierno-que-no-modifique-los-aportes-obligatorios-nid28072026/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/tremendo-error-una-camara-frigorifica-le-pidio-al-gobierno-que-no-modifique-los-aportes-obligatorios-nid28072026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/tremendo-error-una-camara-frigorifica-le-pidio-al-gobierno-que-no-modifique-los-aportes-obligatorios-nid28072026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
-  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://safras.com.br/es/mercado-local-de-soja-comercializacion-lenta/" target="_blank">La soja en Argentina registra una comercialización más lenta</a></div>
     <div class="article-meta">
-      <span class="article-time">hace 23 horas &middot; Safras</span>
+      <span class="article-time">23 hours ago &middot; Safras</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -894,9 +946,22 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-down" data-url="https://safras.com.br/es/mercado-local-de-soja-comercializacion-lenta/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://ruralnet.com.ar/campo-milei-palermo-reclamos/" target="_blank">El campo respaldó a Milei, pero reclamó medidas</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 24 horas &middot; Ruralnet</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://ruralnet.com.ar/campo-milei-palermo-reclamos/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://ruralnet.com.ar/campo-milei-palermo-reclamos/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://ruralnet.com.ar/campo-milei-palermo-reclamos/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.clarin.com/sociedad/advierten-juguete-viral-retirado-europa-posibles-riegos-salud-chicos_0_DFGMaU2hIS.html" target="_blank">Advierten por un juguete viral que ya fue retirado en Europa: los posibles riegos para la salud de los chicos</a></div>
     <div class="article-meta">
-      <span class="article-time">2026-07-29T09:00:07Z &middot; Clarín</span>
+      <span class="article-time">2026-07-29T09:00:07Z &middot; Clarin</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -909,7 +974,7 @@ li.article-item.oculto { display: none; }
   </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
     <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/mensaje-de-gobernadores-nunca-bajaremos-los-brazos-en-el-reclamo-de-las-malditas-retenciones-nid28072026/" target="_blank">Mensaje de gobernadores: “Nunca bajaremos los brazos en el reclamo de las malditas retenciones”</a></div>
     <div class="article-meta">
-      <span class="article-time">2026-07-28T20:19:42.618Z &middot; La Nación</span>
+      <span class="article-time">2026-07-28T20:19:42.618Z &middot; La Nacion</span>
       <span class="badge badge-neg">Negativo</span>
       
     </div>
@@ -945,19 +1010,6 @@ li.article-item.oculto { display: none; }
   <button class="thumb thumb-up"   data-url="https://tn.com.ar/campo/2026/07/27/la-soja-y-los-cereales-tuvieron-un-lunes-negro-en-chicago-y-en-rosario-cuales-fueron-los-principales-motivos/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
   <button class="thumb thumb-down" data-url="https://tn.com.ar/campo/2026/07/27/la-soja-y-los-cereales-tuvieron-un-lunes-negro-en-chicago-y-en-rosario-cuales-fueron-los-principales-motivos/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
 </div>
-  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
-    <div class="article-title"><a href="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" target="_blank">El petróleo crudo desplazó al maíz y la soja y ya es el principal producto de exportación argentino</a></div>
-    <div class="article-meta">
-      <span class="article-time">2026-07-28T13:11:00Z &middot; Ámbito</span>
-      <span class="badge badge-neg">Negativo</span>
-      
-    </div>
-    
-    <a href="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
-    <div class="feedback-bar">
-  <button class="thumb thumb-up"   data-url="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
-  <button class="thumb thumb-down" data-url="https://www.ambito.com/energia/el-petroleo-crudo-desplazo-al-maiz-y-la-soja-y-ya-es-el-principal-producto-exportacion-argentino-n6304316" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
-</div>
   </li></ul>
       </div>
     </details>
@@ -965,7 +1017,7 @@ li.article-item.oculto { display: none; }
 
   <div style="margin-top:64px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7em;color:var(--text-3);letter-spacing:0.06em">ADECOAGRO &mdash; INTELIGENCIA MEDI&Aacute;TICA</div>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7em;color:var(--text-3)">Generado el 29/7/2026, 10:25:30</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7em;color:var(--text-3)">Generado el 29/7/2026, 10:34:30</div>
   </div>
 </div>
 
@@ -992,7 +1044,7 @@ if (document.getElementById('chartWebSent')) {
     options: donutOpts()
   });
 }
-const fuenteLabels = ["Pulso capital","Google news"];
+const fuenteLabels = ["Pulso capital","Simply wall st"];
 const fuenteVals   = [1,1];
 if (fuenteLabels.length > 0) {
   new Chart(document.getElementById('chartMarcas'), {
@@ -1020,7 +1072,7 @@ if (document.getElementById('chartSocSent')) {
 if (document.getElementById('chartSecSent')) {
   new Chart(document.getElementById('chartSecSent'), {
     type:'doughnut',
-    data:{ labels:['Positivo','Neutro','Negativo'], datasets:[{ data:[17,15,14], backgroundColor:sentColors, borderWidth:0, hoverOffset:6 }] },
+    data:{ labels:['Positivo','Neutro','Negativo'], datasets:[{ data:[25,12,13], backgroundColor:sentColors, borderWidth:0, hoverOffset:6 }] },
     options: donutOpts()
   });
 }
