@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Adecoagro &mdash; 03 de noviembre de 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.0/dist/chartjs-chart-treemap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #F5F7F5;
+  --surface:     #FFFFFF;
+  --surface-2:   #EDF2EE;
+  --surface-3:   #E2EBE3;
+  --border:      rgba(0,0,0,0.08);
+  --border-2:    rgba(0,0,0,0.14);
+  --gold:        #2A7A3B;
+  --gold-light:  #1F6030;
+  --gold-dim:    rgba(42,122,59,0.10);
+  --text:        #111C13;
+  --text-2:      #3D6647;
+  --text-3:      #7A9E80;
+  --pos:         #1E7E4E;
+  --pos-bg:      rgba(30,126,78,0.10);
+  --neu:         #8A6A10;
+  --neu-bg:      rgba(138,106,16,0.10);
+  --neg:         #C0392B;
+  --neg-bg:      rgba(192,57,43,0.10);
+  --tw:          #1D9BF0;
+  --ig:          #E1306C;
+  --fb:          #1877F2;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+.page-wrap { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 0 24px 80px; }
+.hero { position: relative; padding: 64px 0 52px; overflow: hidden; animation: fadeDown 0.8s ease both; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 50% -10%, rgba(42,122,59,0.06) 0%, transparent 70%); pointer-events: none; }
+.hero-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.4) 70%, transparent); }
+.hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+.hero-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2em, 5vw, 3.2em); font-weight: 700; line-height: 1.1; color: var(--text); letter-spacing: -0.02em; }
+.hero-title em { font-style: italic; color: var(--gold-light); }
+.hero-divider { height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin: 28px 0; width: 60%; }
+.hero-meta { display: flex; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
+.hero-report-date { font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; color: var(--text-2); display: block; margin-top: 20px; padding-left: 4px; }
+.hero-report-date strong { color: var(--text); font-weight: 600; }
+.hero-insights { list-style: none; display: flex; flex-direction: column; gap: 9px; padding: 0; margin: 0; max-width: 580px; }
+.hero-insights li { font-size: 0.88em; color: var(--text-2); padding-left: 20px; position: relative; line-height: 1.55; }
+.hero-insights li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+.nav-strip { position: sticky; top: 0; z-index: 100; background: rgba(245,247,245,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0; margin: 0 -24px; animation: fadeDown 0.9s ease both; }
+.nav-inner { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; gap: 0; }
+.nav-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--text-3); padding: 14px 20px; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.nav-link:hover, .nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+.section { margin-top: 56px; opacity: 0; transform: translateY(24px); animation: riseIn 0.6s ease forwards; }
+.section:nth-child(1) { animation-delay: 0.15s; }
+.section:nth-child(2) { animation-delay: 0.30s; }
+.section:nth-child(3) { animation-delay: 0.45s; }
+.section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.section-icon { font-size: 1.1em; line-height: 1; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.55em; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+.section-count { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; color: var(--gold); background: var(--gold-dim); border: 1px solid rgba(208,249,33,0.25); padding: 2px 9px; border-radius: 3px; margin-left: auto; }
+.summary-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 2px 8px 8px 2px; padding: 20px 24px; font-size: 0.95em; line-height: 1.8; color: var(--text); font-style: normal; font-weight: 400; margin-bottom: 28px; }
+.dashboard-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+.chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+.chart-card-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 16px; }
+.chart-container { position: relative; height: 180px; }
+.treemap-container { position: relative; height: 180px; }
+.stats-grid { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 28px; padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.stat-group-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+.stat-line { font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; color: var(--text-2); line-height: 2; display: flex; align-items: center; gap: 6px; }
+.stat-val { font-weight: 600; }
+.stat-val.pos { color: var(--pos); }
+.stat-val.neu { color: var(--neu); }
+.stat-val.neg { color: var(--neg); }
+.filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; font-weight: 500; letter-spacing: 0.05em; padding: 6px 16px; border-radius: 3px; border: 1px solid; cursor: pointer; background: transparent; transition: all 0.18s; }
+.filter-btn-all   { border-color: var(--text-3); color: var(--text-3); }
+.filter-btn-pos   { border-color: var(--pos); color: var(--pos); }
+.filter-btn-neu   { border-color: var(--neu); color: var(--neu); }
+.filter-btn-neg   { border-color: var(--neg); color: var(--neg); }
+.filter-btn-all.active, .filter-btn-all:hover   { background: var(--text-3); color: var(--bg); }
+.filter-btn-pos.active, .filter-btn-pos:hover   { background: var(--pos); color: var(--bg); }
+.filter-btn-neu.active, .filter-btn-neu:hover   { background: var(--neu); color: var(--bg); }
+.filter-btn-neg.active, .filter-btn-neg:hover   { background: var(--neg); color: var(--bg); }
+details.accordion { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+details.accordion > summary { padding: 16px 22px; cursor: pointer; background: var(--surface); font-weight: 500; font-size: 0.88em; color: var(--text-2); display: flex; justify-content: space-between; align-items: center; list-style: none; user-select: none; transition: background 0.2s; }
+details.accordion > summary::-webkit-details-marker { display: none; }
+details.accordion > summary:hover { background: var(--surface-2); color: var(--text); }
+.accordion-arrow { font-size: 0.7em; color: var(--text-3); transition: transform 0.25s; }
+details.accordion[open] > summary .accordion-arrow { transform: rotate(180deg); }
+.accordion-body { padding: 24px; }
+details.empresa-accordion { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px; overflow: hidden; }
+details.empresa-accordion > summary { padding: 12px 16px; cursor: pointer; background: var(--surface); display: flex; align-items: center; gap: 10px; list-style: none; user-select: none; transition: background 0.15s; font-size: 0.88em; }
+details.empresa-accordion > summary::-webkit-details-marker { display: none; }
+details.empresa-accordion > summary:hover { background: var(--surface-2); }
+.empresa-name { font-weight: 600; flex: 1; text-transform: uppercase; letter-spacing: 0.04em; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; }
+.empresa-badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; background: var(--surface-3); border: 1px solid var(--border); color: var(--text-3); padding: 2px 10px; border-radius: 20px; }
+ul.article-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+li.article-item { padding: 16px 20px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--text-3); transition: border-left-color 0.2s, background 0.2s; }
+li.article-item:hover { background: var(--surface-2); }
+li.article-item[data-sentimiento="positivo"] { border-left-color: var(--pos); }
+li.article-item[data-sentimiento="neutro"]   { border-left-color: var(--neu); }
+li.article-item[data-sentimiento="negativo"] { border-left-color: var(--neg); }
+li.article-item.oculto { display: none; }
+.article-title { font-weight: 500; font-size: 0.9em; line-height: 1.45; margin-bottom: 8px; }
+.article-title a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+.article-title a:hover { color: var(--gold-light); }
+.article-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.article-time { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; color: var(--text-3); }
+.badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.65em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
+.badge-pos  { background: var(--pos-bg); color: var(--pos); border: 1px solid rgba(63,184,130,0.3); }
+.badge-neu  { background: var(--neu-bg); color: var(--neu); border: 1px solid rgba(201,168,76,0.3); }
+.badge-neg  { background: var(--neg-bg); color: var(--neg); border: 1px solid rgba(224,85,85,0.3); }
+.badge-adec { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(208,249,33,0.25); font-size: 0.6em; }
+.platform-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.65em; font-weight: 600; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 2px; color: #fff; }
+.article-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; text-decoration: none; transition: opacity 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+.article-link:hover { opacity: 0.7; }
+.feedback-bar { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); display: flex; gap: 6px; align-items: center; }
+.feedback-bar::before { content: 'Fue util?'; color: var(--text-2); font-size: 0.72em; margin-right: 4px; opacity: 0.7; }
+.thumb { background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 2px 10px; cursor: pointer; font-size: 0.95em; line-height: 1; transition: all 0.15s; }
+.thumb-up   { color: #66bb6a; }
+.thumb-down { color: #ef5350; }
+.thumb:hover:not(:disabled) { border-color: var(--gold); transform: translateY(-1px); }
+.thumb.voted.thumb-up   { background: rgba(46, 125, 50, 0.18); border-color: #2e7d32; }
+.thumb.voted.thumb-down { background: rgba(198, 40, 40, 0.18); border-color: #c62828; }
+.thumb:disabled { opacity: 0.35; cursor: not-allowed; }
+@keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes riseIn   { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width: 680px) { .dashboard-row { grid-template-columns: 1fr; } .nav-link { padding: 12px; font-size: 0.68em; } }
+</style>
+<meta name="robots" content="noindex,nofollow">
+<script>
+(function(){
+  if (window.location.hash.indexOf('access=ADCGnews2026') === -1) {
+    document.documentElement.innerHTML =
+      '<html><body style="font-family:sans-serif;text-align:center;padding:60px">' +
+      '<h2>Acceso restringido</h2>' +
+      '<p>Este reporte es de uso interno Adecoagro. Pedi el link al equipo.</p>' +
+      '</body></html>';
+  }
+})();
+</script>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="hero">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-eyebrow">Inteligencia Medi&aacute;tica</div>
+    <h1 class="hero-title">Reporte <em>Adecoagro</em></h1>
+    <p class="hero-report-date">Fecha del Reporte: <strong>03 de noviembre de 2026</strong></p>
+    <div class="hero-divider"></div>
+    <ul class="hero-insights"><li>OPERACIÓN ESTRATÉGICA: Adecoagro consolida su portafolio con la adquisición de 900.000 hectáreas del Grupo Benetton mediante sus socios, transformándose en actor dominante de la propiedad agraria argentina.</li><li>PRESIÓN DE COSTOS SECTORIAL: El Banco Mundial advierte aumentos de hasta 28% en precios de alimentos y fertilizantes para 2026, generando headwinds en rentabilidad agroindustrial mientras costos de siembra de soja suben simultáneamente.</li><li>ACCESO CREDITICIO LIMITADO: Consultores del agro reportan restricción en financiamiento disponible, obligando a productores a posponer inversiones e incrementos de capital en contexto de volatilidad de precios.</li></ul>
+  </div>
+</div>
+<nav class="nav-strip">
+  <div class="nav-inner">
+    <a href="#sec-noticias" class="nav-link">&#128240; Noticias (9)</a>
+    <a href="#sec-social"   class="nav-link">&#128241; Redes (2)</a>
+    <a href="#sec-empresas" class="nav-link">&#127970; Empresas (1)</a>
+    <a href="#sec-sector"   class="nav-link">&#127807; Sector (32)</a>
+  </div>
+</nav>
+<div class="page-wrap">
+
+  <section class="section" id="sec-noticias">
+    <div class="section-header">
+      <span class="section-icon">&#128240;</span>
+      <h2 class="section-title">Noticias Principales</h2>
+      <span class="section-count">9 art&iacute;culos</span>
+    </div>
+    <div class="summary-card">Adecoagro protagoniza una operación histórica de envergadura sin precedentes en Argentina. A través de sus socios, la compañía adquirió 900.000 hectáreas del Grupo Benetton en la Patagonia, consolidando su posición como uno de los mayores actores del agronegocio nacional. La transacción, reportada por Bloomberg Línea, Forbes Argentina, Clarín y La Capital, marca un hito significativo en la reestructuración de la propiedad agraria argentina y posiciona a Adecoagro como protagonista central en la concentración de activos productivos de gran escala.</div>
+        <div class="dashboard-row">
+      <div class="chart-card">
+        <div class="chart-card-title">Distribuci&oacute;n de Sentimiento</div>
+        <div class="chart-container"><canvas id="chartWebSent"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Top Fuentes de Cobertura</div>
+        <div class="chart-container"><canvas id="chartMarcas"></canvas></div>
+      </div>
+    </div>
+    <details class="accordion" style="margin-top:20px">
+      <summary>Ver 9 art&iacute;culos <span class="accordion-arrow">&#9660;</span></summary>
+      <div class="accordion-body">
+        <div class="filter-bar">
+          <button class="filter-btn filter-btn-all active" onclick="filtrar('web','all',this)">Todos (9)</button>
+          <button class="filter-btn filter-btn-pos" onclick="filtrar('web','positivo',this)">Positivo (1)</button>
+          <button class="filter-btn filter-btn-neu" onclick="filtrar('web','neutro',this)">Neutro (8)</button>
+          
+        </div>
+        <ul class="article-list"><li class="article-item" data-sentimiento="positivo" data-prefix="web">
+    <div class="article-title"><a href="https://www.forbesargentina.com/negocios/adecoagro-queda-negocio-agropecuario-benetton-argentina-compra-mas-900000-hectareas-patagonia-n101600" target="_blank">Adecoagro se queda con el negocio agropecuario de ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 18 horas &middot; Forbes Argentina</span>
+      <span class="badge badge-pos">Positivo</span>
+      <span class="badge badge-adec">ADECOAGRO</span>
+    </div>
+    
+    <a href="https://www.forbesargentina.com/negocios/adecoagro-queda-negocio-agropecuario-benetton-argentina-compra-mas-900000-hectareas-patagonia-n101600" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.forbesargentina.com/negocios/adecoagro-queda-negocio-agropecuario-benetton-argentina-compra-mas-900000-hectareas-patagonia-n101600" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.forbesargentina.com/negocios/adecoagro-queda-negocio-agropecuario-benetton-argentina-compra-mas-900000-hectareas-patagonia-n101600" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://www.bloomberglinea.com/latinoamerica/argentina/benetton-vende-empresas-y-mas-de-900000-hectareas-a-socios-de-adecoagro-en-argentina/?outputType=amp" target="_blank">Benetton vende empresas y más de 900.000 hectáreas a ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 16 horas &middot; Bloomberg Línea</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://eleconomista.com.ar/negocios/benetton-va-argentina-tras-35-anos-vendio-900000-hectareas-conocio-quien-compro-n99410" target="_blank" style="color:var(--text-3);text-decoration:underline">eleconomista.com.ar</a> &middot; <a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxNYWdmM3U4ZEozS1hVTVZWcDNGOUZTVVJwN1Z6a2J1Vy02UFJWRzQ5VG0tV3E2QlJNaEtYZXNvU290c0JGdGV3TDlqMTdnMVZIdGQ3dFV6U01qWGxXOTJPMXQya3dUZmROakdHeHV2STBpUXFtVnhFaGxUeTJMeVhTTFRjZVRuRXlyeE1rM3BKQmVJZ2l4U1lxdjFJUkVPeEtWTE1rV1RUcXZPRmFmQU84V1VURVVCay1jYWhzb2tfTTJnOFUxVGfSAcsBQVVfeXFMT0I2cGxfVlkycDNoWWVmMTU5V1lHOW9mR2dzdjFhMzdUcTFEUklBQ0NybVBaWG5TQkJrVnR1NnI2SXZxU3d3X1lTRVlNenlDbHlvVmJHSnpFUW13VlcxLW9oMDZYZkhCQlpRMXFmT2dUQjJtd0VZQjNzcVBfeUZjU2tWYmpxTHFucG83LWRmaF83aUhXTXM1WVBBSFdSQ0c2Q3NLclc1b3JtV25nTnpEWkV1SXVjZTlud2x1ZHFNMW52WG4yVXljdWxoaTg?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Gente de Salta</a> &middot; <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxOMC1PQWktcExDeWJZclhqMnV2VVg3eVhyb2VVYVZPSUFGclMteUU4QUNKSjJhcVA4bERkelJ2bmdYbkM5bVkxajNScmpkdGd0SXNNMTBrQ0czdkN1N25teW9SZXZzTEU1Mjd2VFU3b1FZWXY4TlVUb3dMVkpSY3o4QV8tWWVKZjNqQ0dqVlYxdm9XUmtxbG9qR3A5ZU5wWUJpdzRjeE5oeDRxejQxclQ4ODBRclJZVzgybmtaTkhwZEx2NTVPNjNiaA?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Identidad Correntina</a> &middot; <a href="https://news.google.com/rss/articles/CBMi1wFBVV95cUxNdTF4N2p2d2ZfVlctOENTVjhVRVRQel80OEVKWFdmSmRwT1Z3elVqel9oc05vLW8tSnRDeVlGeEQ2ZlY4c0hXenVzaUpoeG5GUlVkS2ZfZGhCMTVQRWR6Rnp1S3U5YnJzdWxBOTNoMmdYZ2VSckczLUFGUGxVeTJ5TExYT2ZQVGNCNmwwYkpEelVURnFqbEE0MXVoWktzWmltUWJHLXN0QXppcmI3dHhZZ210aVA5ek5rdnRLblpwejNKQTRjRXBWbV9NNjhHUWowdURVSjVjMNIB6wFBVV95cUxPcVhyTXF1dHBTSTc2eWtOM19zWUY5TWN1MFlWTEdldnBCMUJrd3JfVWJlWDlFZDNvS1U2Qk5xanNyc2FheHlsNTlTZFl5d0VhbkJxbTJWSFJfZzd4TW5QN1k4MGJZSUR0RHVQUElMQmFmVERpYTJVLUpYXzQtVHN1VThfNk1CcU1IRWtfZWRzMXotejlKS2t6aXdRR21UQjNTcWtmUGpXclhoTXRoeEgtUmVqZU90UUVWQVRpT2VDMDhhV2Uxd0JnRFlqeEVyVHJsbTdJMkFrZjFzWi1PVTNlNG1RdndoWnVhTHpr?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Bloomberg Línea</a> &middot; <a href="https://news.google.com/rss/articles/CBMi2gFBVV95cUxNTzBPSHBEa3ptcXZaSVZrZXl3R25HbS1jdnBKaGIwZFZVcXd1WmxwTW9SQWl5Zkl5QVdrVWdlV0gyb1VMbEQxYmRhOFQzQzNFYzFZcnJNdlZVWFNqalZ2dTFrNW8ya0dKMFBJY2FqV2RYMWJZajIzVkhPM3ZydDh5YU00ZTA4djJCbEx6Tm40eTR3ZU1jMWFEV2xYdjJVN0dxeGVHZmY0MWxMSlBFUllFY3JGTjZnT3k2MXk1ZHJreEk2LXJUOVlVSVJXZndySTJhVlg3OWY4N0lZUdIB3wFBVV95cUxPMmpZQzhjekIwWVl6bGQ0N1RrS3UzNzNmbHlrUzVVUDZiN2hHeWpxcDdaZUdlcWRzTG0xNnY0T0NIbW1WeF85T29hTWtzTGV4S1hCQUticzA5eU1tN0RJeElZYmRMSTRUZ1JrcEtHdXV6STg3MHpENU5sVV95eE5Fd0gwRnBpWGdOTEhMNzROOFBXZmx5bTVOYnVaZl9ERzhkVnh6OUo2NlJtSG9YcktzTVI2MWxaZ21xOU1aeS1mZmhNU1BRMVU5VHc1Smc3Q1FtbmxQcnZieEpibXhRaERB?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Forbes Argentina</a> &middot; <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxQb0ZCRUthT0NzdGp6RXVKb284OXVRWm1rOTQ0RnJJWm94UWtNVHJIc2d1ZVFwcTJ0U3VhakNnbXR0STVmeXFVVVZ3NlpNQ1N5RXc4Qy11N2wyRGFiOXRxSDdpVnFLVGczMTBzNUhVY1pPbHpJcWU0SzFHZUFja0ZqY1hrNGZmZFI3NFJUMFFTcw?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Economis</a> &middot; <a href="https://news.google.com/rss/articles/CBMijgFBVV95cUxPQ1dJQTA0WVc2VzE0Q2xQTHU5TXNDYy1laVZyNV9RVS1Ya3ZGV2ZLazZaRzNRM0tRaWVTZm1MaWFnV3NxazVGZ05ZWWRjTnNSSVlrb01Yb2JxQVRSV3JxTnJYbzNkSDhjckVVYmxmN1BsVmtrRjZsRVhUOGU0YVplSF80SjhyTWp5Sm00dXdB?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">El Ecosistema Startup</a> &middot; <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxPak81Mk1OdzJ0TEVSR0U1NXF4VlRScG55eWlyRm1RUWNrT3I3ZEI2NjUwNVFuT3ZVdzlEMm5FdHUtM2dUSVA5X1pfRW1ZZnlYZUstTFBjYXp6NlQ5WUo3MmVKWGRaMEhFal9LanIxeDRYMlN1X2dramgxZWpYNENya1QxaXg4RjJRUDRjY0hsZlI5X29GVy12cGVIc0hqbzRsc3AwaXMtTk5GNzluc0dOWGlWLTJQU3M30gGyAUFVX3lxTE5IY0FWSnB4ZzN4c0hqNXQ4aXJfZGhIdzlaRnNaV1NhbVhTWGlueFJ3VVZXTmZOd2gxTVBmaFNsMWlrREthaXV4UVBJaklYMzRFbV9TekhoLWg0Q2lFakNWbjE5LVItc3lLN05TcE8tVnU5cEZfZnByUVZQQUR1am9ZU1hjYTY1MUlZbDBWbDRBalpWdWlxTXpmMW90aG5jcFJ4SkhkT0FHS2t2NnVjYW8tVHc?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Elonce.com</a> &middot; <a href="https://news.google.com/rss/articles/CBMi5AFBVV95cUxPdWtSdmRleE85NTJYSnlsNlZoakpFeHBITGxNZEFjNUxtSDdtdFJGcEhVYnhjZE1XajhJSU1SUTJKR3lGMWE5eU1pemQ4Q25MLVQ3R1RmNFd5ODdtV2dxc25KM0xVQy1YdlBsX0lrVnlTbFZkekhUTnNUUG1KQ0tIRXM3UG81TTBSZDVDV0pRR1JvVWJTVVhrZ0FTdVZodmxCMUItbzluLU56S3R4eGI3MVU2NHBKLWVvYk1OdHRydWxfaWJqSVFySzFxcWd2a3FscDNtZmRJRlhBN1BrQ2VLVzJrZGk?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Data Portuaria</a> &middot; <a href="https://news.google.com/rss/articles/CBMixAJBVV95cUxOczNQUGRaaENXWGdEV1JDbGVKY2JLbEdQR3BHTWxCX0trMnJFZG1rX0lRN0VYaWxJV2FFcV9pM3BjU0ZvTWp4SWN2QWozb3A2Y2FqVkNBODFGaDZLQlFMdk9xRHQ4Zm51SmRlR0l5MW82MkN0WVd3M2ltM25KRzhMUm9rblVmd2NMcDYyOHRldzBTR0tNcUNNT19CUExaejYxLXJRYWtlV0NlckhNalpkMW9TN0VZdDZQV1hRdVZlSzdmTXAxbHh1VVkxcVVtdnpmSmdwOHpnd19PTFVYX29GNF9BMjhTMGEtSzlBUlJOamFtYkhnS0lCRjVsQUFyWWg1OG5vNEtFZDBjc1FOWkRWZE1DYXZQdWotdVdRZVJ6VXdEVHNyNU5vZUthVEl0d0FfUkdJVzhKZVEtNjQ0NTI3OHhIMFY?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Bichos de Campo</a> &middot; <a href="https://news.google.com/rss/articles/CBMi4AFBVV95cUxPT3ZLajhfbjk3MDFCNXN3QmtCTTBIb2JGZFh2ZkFwUTlyVzcwMF9UbUEzd2N0bzB6MGF1UXg1S2pxdWUzanJfYmJSMXlkVVdtVnN2dmhIbVlYanVjN083N3BYMG9YVjBIZ1BGM1ZpNGFla29IMzdBazV4RHRoMjZReVIxeTZJYUpNOVhNYTJ3V3FlU2kzNDdXVjNoSzZCd3MyM0p1RkdFWDZzRTJ4akFBWU1wRzRjQ05tUm5VanRwSDZlMmpvaEdvVFRoRUNzOHFkNGtHY3A2ZjBSRTFTRzZwTA?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Diario Digital Conclusión</a> &middot; <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQOTJjNl9QQXg5aXBVSENmSUhUWG9FQVJLdkU2dTVlQU1tbktLeFdfNy0zM1NyRFBmSUZKT05mSWV4dEx6UDhpeHg5Mnh2dE8zcUgzVnl1TjgtdVZSVVBUb3B4OWVVajhKRkRfZi1sd3g4RzFILVJySVdRcDFUSnhFeWVlS1NvM2t1aDRWZ19Gei1JeHQtYjlNTGZjaXd3Q2JSQWtlX3NIZXlhV29CSUFWVTBudDNnelB0dFpTQ0xHUHNfYzg?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">LA17</a> &middot; <a href="https://news.google.com/rss/articles/CBMi2gFBVV95cUxOMVdTVXVTZWtnUWtnTzRfbXlZM3VYWHNSYWFLY3JuM1lkck1zQ3FqMFpNcHhhMWtkNG1aS2prNWJ3elZTZHZxMWNRbUppdEQ5UHI3aFJYZ01FUTEzdWJ3Wk5KXzFIc1dXbjFodnZPRUlWWlYzVG5JVGpEYTlJOFljZTJmUjZXLTNxSENwdGFhc2wzdlhUVGFraFA0c2xGbnI3UDJTcV9UUEJDUl9XblhXZ1pBUm9wRTFfWEVqalRvSmNNd05DczVVZjlST0pQS05CN0tzUTlLbDdxd9IB6AFBVV95cUxQaTFVd3h4XzhUNC1XWU54Ym9JMksyUTdMTURBejdabGJ1ek1tYnpFTWI4LWRzNWEyV0owWHlUUWpGaTBvalVwTXUtU2JvYUMtMjd3YmhrcDNITnJnRko0WjA5SmJZTWd5OXlrVkJ1NEJmRExQclcxQkxKX3pOaEtGY091bTdhSnBkdWtDSWVxVXZscjFoLWVra21NWVhSOGZxcHRBSkpDeF82SUNaamtya1VCTDlBX3F4Yk5JME14ald6UW42ck82SkJMRzlQWmVjMk40a1p1enpmQW1JSFgtZWwzTHgzVjNh?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Agencia Noticias Argentinas</a> &middot; <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPd0xPS2dGNHAxZFRrTEFwVnhoc0RjaHNOWVZUVUFJUWIxZHZBYjJSbXJfalpIOHdEQ3pWdnY2cXZBUFNIdGVqZVJVNmY1alRQazQyTm5ZOHhnNnQtckxOYkM2Wnp6VjFPVV9NNnJrTENXOHkxd0k1M0dSSFhUWnNFWVctSi1KX1hsOUtaUm5sTjN3anREZHB1ckUxWXl4a1hMYnhPNlFOblB6d2ZIOF84NG9SNVd2LVk?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">radio master lujan</a></div>
+    <a href="https://www.bloomberglinea.com/latinoamerica/argentina/benetton-vende-empresas-y-mas-de-900000-hectareas-a-socios-de-adecoagro-en-argentina/?outputType=amp" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.bloomberglinea.com/latinoamerica/argentina/benetton-vende-empresas-y-mas-de-900000-hectareas-a-socios-de-adecoagro-en-argentina/?outputType=amp" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.bloomberglinea.com/latinoamerica/argentina/benetton-vende-empresas-y-mas-de-900000-hectareas-a-socios-de-adecoagro-en-argentina/?outputType=amp" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://www.lacapital.com.ar/informacion-general/una-operacion-historica-benetton-vendio-900-mil-hectareas-la-patagonia-una-superficie-50-veces-mayor-que-rosario-n10290058.html/amp" target="_blank">Una operación histórica: Benetton vendió 900 mil ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 19 horas &middot; La Capital</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://news.google.com/rss/articles/CBMi2AFBVV95cUxOdE0yeERmS21yMC1pc0FXUDMzVmRtbjlxRU1URzRWWUM3RVc1emhHUXZScnBoTV92WjVWVEUyYzlYcGdlTXd4RTNtelNsSm5PU3NBSzV1d1NzTEsydXYyVm91Ny1yUGxJWVBLNVZsVVZhdE92UURRdWQ5dGRJNDlNWDJmQmZ4eHBKQ2s5OEZHSklpMTdSdEk1NTNNVkVaRTNHeFl0TDd4ZThHU1QwbkVYRFltQ2huNHZkdXRudEVjUEtOaE9nS2tSNDV6SFdlbjVKczl1UjBwblHSAc8BQVVfeXFMTXZxaVBvRXpDNGNXa2k3U2Z1Q3YzV0VTR0pCMDB5VThwSXZCYUpXVnNBbFRDUFlyNi1LUFRWak1OUERHaEh1VU9uVkV4WWxkcE03UU5FcHpMUkF1SzF6dU5sLUJGWXpPeXZkTngyOHpiSndqMUdiVFp4d2MxOTNCeTJqNjZfcmZJcm4zbncyWjJQYV9aV24wdkk4d0dvVlg3eVpTRnB1V19kX3FiTEZMTjJpRGxPQ3o0WF9Ta1ROSU1mUUlWdWlJSzN3LUxwNTYw?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Diario Mendoza Today</a></div>
+    <a href="https://www.lacapital.com.ar/informacion-general/una-operacion-historica-benetton-vendio-900-mil-hectareas-la-patagonia-una-superficie-50-veces-mayor-que-rosario-n10290058.html/amp" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lacapital.com.ar/informacion-general/una-operacion-historica-benetton-vendio-900-mil-hectareas-la-patagonia-una-superficie-50-veces-mayor-que-rosario-n10290058.html/amp" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lacapital.com.ar/informacion-general/una-operacion-historica-benetton-vendio-900-mil-hectareas-la-patagonia-una-superficie-50-veces-mayor-que-rosario-n10290058.html/amp" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://www.clarin.com/rural/perfil-adecoagro-empresa-detras-mega-compra-campos-argentinos-benetton_0_zugoPkgDR4.html" target="_blank">El perfil de Adecoagro, la empresa detrás de la mega ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 15 horas &middot; Clarín</span>
+      <span class="badge badge-neu">Neutro</span>
+      <span class="badge badge-adec">ADECOAGRO</span>
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.clarin.com/rural/perfil-adecoagro-empresa-detras-mega-compra-campos-argentinos-benetton_0_zugoPkgDR4.html" target="_blank" style="color:var(--text-3);text-decoration:underline">clarin.com</a> &middot; <a href="https://news.google.com/rss/articles/CBMi5gFBVV95cUxQdzdxaDBWQXFPMzAwUnpVVUh1R2JrMUowa2lTa1VCdFpVMnVKbVB2MHlkT1h4SndVQ3JzUndIeTVHMlR5dXdzWEd4SHJBTkp3el9WbVUzNVJ0LXdrUS1rTzhpLXFFOHg4bWdjSmVNSGpvd0ZrdlJROTJySTJHZWc5YWVnV2lSTGRQblRmbk1rQXJ1LUFmSTllbmNIdWU1bHYwY2RMejBvVWlDS0wxUEJxbFQ5MG9nOGFPYUQxX2VJeGVPcGM1YkswMHR1RkJWc2dmQmhPQWE5SExyTGZMdzFkbkpYcnByUQ?oc=5" target="_blank" style="color:var(--text-3);text-decoration:underline">Rosario Finanzas</a> &middot; <a href="https://www.clarin.com/rural/perfil-adecoagro-empresa-detras-mega-compra-campos-argentinos-benetton_0_zugoPkgDR4.html" target="_blank" style="color:var(--text-3);text-decoration:underline">Clarín.com</a></div>
+    <a href="https://www.clarin.com/rural/perfil-adecoagro-empresa-detras-mega-compra-campos-argentinos-benetton_0_zugoPkgDR4.html" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/perfil-adecoagro-empresa-detras-mega-compra-campos-argentinos-benetton_0_zugoPkgDR4.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/perfil-adecoagro-empresa-detras-mega-compra-campos-argentinos-benetton_0_zugoPkgDR4.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxNTVBpWVE4Z3RWQkFTYms4WENQYXdvTk50bGljV2hvQlZMUlUzaVZvWWZSV3BONWpNN1U1OEpfUjRvQ0txM1FqRHB4R0FwaU1saU5QQ3VFZUZyZ3dONU5Kd0ZPSmxfU0h0Y1B2Y1dOWHVFZUZqVlgtbnRVRV85TEpyQnlxTG1aYjdLemVxZXpVOXlvU29RUld6MlQwRQ?oc=5" target="_blank">Socios de Adecoagro compraron las tierras del Grupo Benetton en Argentina - Ecos Diarios Necochea</a></div>
+    <div class="article-meta">
+      <span class="article-time">Mon, 02 Nov 2026 21:06:22 GMT &middot; Ecos Diarios Necochea</span>
+      <span class="badge badge-neu">Neutro</span>
+      <span class="badge badge-adec">ADECOAGRO</span>
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.letrap.com.ar/letrae/agro-industria/los-nuevos-duenos-la-patagonia-los-socios-adecoagro-se-quedaron-las-tierras-benetton-n5427911/amp" target="_blank" style="color:var(--text-3);text-decoration:underline">Letra P</a></div>
+    <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxNTVBpWVE4Z3RWQkFTYms4WENQYXdvTk50bGljV2hvQlZMUlUzaVZvWWZSV3BONWpNN1U1OEpfUjRvQ0txM1FqRHB4R0FwaU1saU5QQ3VFZUZyZ3dONU5Kd0ZPSmxfU0h0Y1B2Y1dOWHVFZUZqVlgtbnRVRV85TEpyQnlxTG1aYjdLemVxZXpVOXlvU29RUld6MlQwRQ?oc=5" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://news.google.com/rss/articles/CBMimwFBVV95cUxNTVBpWVE4Z3RWQkFTYms4WENQYXdvTk50bGljV2hvQlZMUlUzaVZvWWZSV3BONWpNN1U1OEpfUjRvQ0txM1FqRHB4R0FwaU1saU5QQ3VFZUZyZ3dONU5Kd0ZPSmxfU0h0Y1B2Y1dOWHVFZUZqVlgtbnRVRV85TEpyQnlxTG1aYjdLemVxZXpVOXlvU29RUld6MlQwRQ?oc=5" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://news.google.com/rss/articles/CBMimwFBVV95cUxNTVBpWVE4Z3RWQkFTYms4WENQYXdvTk50bGljV2hvQlZMUlUzaVZvWWZSV3BONWpNN1U1OEpfUjRvQ0txM1FqRHB4R0FwaU1saU5QQ3VFZUZyZ3dONU5Kd0ZPSmxfU0h0Y1B2Y1dOWHVFZUZqVlgtbnRVRV85TEpyQnlxTG1aYjdLemVxZXpVOXlvU29RUld6MlQwRQ?oc=5" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQcjRxeWwwRjFSb1huWUxZendwWkZuX2ZvVGttd3h5bEFtU1ZwMkt1TXFqX3N4NVNuSC1jaWx6aFVwX0Nlbks0cDdCcnJ2UzM2OXhBWTdIb2hvTzBkdEdVVlVPMFhpOHI3S3RPbmctQXRrTzB5d2pjNzFQSERhUk5QV0hOdzZFTS0tc1h5SnEybEVGWUNZMnY3bi1oS2hxTlY5T0FyQnRKVW93aXVoVFpMZ2gwMnpaQTk0eWJF?oc=5" target="_blank">Dueños de Adecoagro compraron 900.000 has a Benetton, ¿qué negocios encaran? - Punto Biz</a></div>
+    <div class="article-meta">
+      <span class="article-time">Mon, 02 Nov 2026 16:19:01 GMT &middot; Punto Biz</span>
+      <span class="badge badge-neu">Neutro</span>
+      <span class="badge badge-adec">ADECOAGRO</span>
+    </div>
+    
+    <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQcjRxeWwwRjFSb1huWUxZendwWkZuX2ZvVGttd3h5bEFtU1ZwMkt1TXFqX3N4NVNuSC1jaWx6aFVwX0Nlbks0cDdCcnJ2UzM2OXhBWTdIb2hvTzBkdEdVVlVPMFhpOHI3S3RPbmctQXRrTzB5d2pjNzFQSERhUk5QV0hOdzZFTS0tc1h5SnEybEVGWUNZMnY3bi1oS2hxTlY5T0FyQnRKVW93aXVoVFpMZ2gwMnpaQTk0eWJF?oc=5" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQcjRxeWwwRjFSb1huWUxZendwWkZuX2ZvVGttd3h5bEFtU1ZwMkt1TXFqX3N4NVNuSC1jaWx6aFVwX0Nlbks0cDdCcnJ2UzM2OXhBWTdIb2hvTzBkdEdVVlVPMFhpOHI3S3RPbmctQXRrTzB5d2pjNzFQSERhUk5QV0hOdzZFTS0tc1h5SnEybEVGWUNZMnY3bi1oS2hxTlY5T0FyQnRKVW93aXVoVFpMZ2gwMnpaQTk0eWJF?oc=5" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQcjRxeWwwRjFSb1huWUxZendwWkZuX2ZvVGttd3h5bEFtU1ZwMkt1TXFqX3N4NVNuSC1jaWx6aFVwX0Nlbks0cDdCcnJ2UzM2OXhBWTdIb2hvTzBkdEdVVlVPMFhpOHI3S3RPbmctQXRrTzB5d2pjNzFQSERhUk5QV0hOdzZFTS0tc1h5SnEybEVGWUNZMnY3bi1oS2hxTlY5T0FyQnRKVW93aXVoVFpMZ2gwMnpaQTk0eWJF?oc=5" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://www.google.com/url?rct=j&amp;sa=t&amp;url=https://bichosdecampo.com/huited-color-of-benetton-los-hermanos-italianos-ya-no-son-los-mayores-terratenientes-de-la-argentina-pues-cedieron-todos-sus-campos-casi-1-millon-de-hectareas-al-grupo-que-vendio-adecoagro-a-un-f/&amp;ct=ga&amp;cd=CAIyGjNmOGNiMTNkZmUwODM0MGQ6Y29tOmVzOlVT&amp;usg=AOvVaw3dELF27nnX4P15TPkV_PF7" target="_blank">Huited color of Benetton: Los hermanos italianos ya no son los mayores terratenientes de la ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T19:04:13Z &middot; google.com</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    
+    <a href="https://www.google.com/url?rct=j&amp;sa=t&amp;url=https://bichosdecampo.com/huited-color-of-benetton-los-hermanos-italianos-ya-no-son-los-mayores-terratenientes-de-la-argentina-pues-cedieron-todos-sus-campos-casi-1-millon-de-hectareas-al-grupo-que-vendio-adecoagro-a-un-f/&amp;ct=ga&amp;cd=CAIyGjNmOGNiMTNkZmUwODM0MGQ6Y29tOmVzOlVT&amp;usg=AOvVaw3dELF27nnX4P15TPkV_PF7" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.google.com/url?rct=j&amp;sa=t&amp;url=https://bichosdecampo.com/huited-color-of-benetton-los-hermanos-italianos-ya-no-son-los-mayores-terratenientes-de-la-argentina-pues-cedieron-todos-sus-campos-casi-1-millon-de-hectareas-al-grupo-que-vendio-adecoagro-a-un-f/&amp;ct=ga&amp;cd=CAIyGjNmOGNiMTNkZmUwODM0MGQ6Y29tOmVzOlVT&amp;usg=AOvVaw3dELF27nnX4P15TPkV_PF7" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.google.com/url?rct=j&amp;sa=t&amp;url=https://bichosdecampo.com/huited-color-of-benetton-los-hermanos-italianos-ya-no-son-los-mayores-terratenientes-de-la-argentina-pues-cedieron-todos-sus-campos-casi-1-millon-de-hectareas-al-grupo-que-vendio-adecoagro-a-un-f/&amp;ct=ga&amp;cd=CAIyGjNmOGNiMTNkZmUwODM0MGQ6Y29tOmVzOlVT&amp;usg=AOvVaw3dELF27nnX4P15TPkV_PF7" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMWNYbzBVWW9yOWVKcERZSVN6bU5WZ1Y3MlN6VVkwVldrWVVHZF9iLTZ0b25Qc3A3cXExVGNpWXdRajdscWFDa0UxNy1EN3dLbjM3RmFVdFdaV1hDTEl3bzloc3EyN05tRFZYUWdtSXR2TWFDNi1iTFY4NDh4eE1YVXA5MlFTVURqRmlBNEJJRkZzZFRiNkhYYTdnYnM0QmxPZTg3bXYyeklhczVJODFpN21sZG10VkkwNDVOQ2FCSDVYZDJrVzVrNWZjM3hvSlZlaUdRUXZscEo3UXE0NkE?oc=5" target="_blank">Los nuevos dueños de la Patagonia: los socios de Adecoagro se quedaron con las tierras de Benetton - Letra P</a></div>
+    <div class="article-meta">
+      <span class="article-time">Mon, 02 Nov 2026 21:21:00 GMT &middot; Letra P</span>
+      <span class="badge badge-neu">Neutro</span>
+      <span class="badge badge-adec">ADECOAGRO</span>
+    </div>
+    
+    <a href="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMWNYbzBVWW9yOWVKcERZSVN6bU5WZ1Y3MlN6VVkwVldrWVVHZF9iLTZ0b25Qc3A3cXExVGNpWXdRajdscWFDa0UxNy1EN3dLbjM3RmFVdFdaV1hDTEl3bzloc3EyN05tRFZYUWdtSXR2TWFDNi1iTFY4NDh4eE1YVXA5MlFTVURqRmlBNEJJRkZzZFRiNkhYYTdnYnM0QmxPZTg3bXYyeklhczVJODFpN21sZG10VkkwNDVOQ2FCSDVYZDJrVzVrNWZjM3hvSlZlaUdRUXZscEo3UXE0NkE?oc=5" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMWNYbzBVWW9yOWVKcERZSVN6bU5WZ1Y3MlN6VVkwVldrWVVHZF9iLTZ0b25Qc3A3cXExVGNpWXdRajdscWFDa0UxNy1EN3dLbjM3RmFVdFdaV1hDTEl3bzloc3EyN05tRFZYUWdtSXR2TWFDNi1iTFY4NDh4eE1YVXA5MlFTVURqRmlBNEJJRkZzZFRiNkhYYTdnYnM0QmxPZTg3bXYyeklhczVJODFpN21sZG10VkkwNDVOQ2FCSDVYZDJrVzVrNWZjM3hvSlZlaUdRUXZscEo3UXE0NkE?oc=5" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMWNYbzBVWW9yOWVKcERZSVN6bU5WZ1Y3MlN6VVkwVldrWVVHZF9iLTZ0b25Qc3A3cXExVGNpWXdRajdscWFDa0UxNy1EN3dLbjM3RmFVdFdaV1hDTEl3bzloc3EyN05tRFZYUWdtSXR2TWFDNi1iTFY4NDh4eE1YVXA5MlFTVURqRmlBNEJJRkZzZFRiNkhYYTdnYnM0QmxPZTg3bXYyeklhczVJODFpN21sZG10VkkwNDVOQ2FCSDVYZDJrVzVrNWZjM3hvSlZlaUdRUXZscEo3UXE0NkE?oc=5" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="web">
+    <div class="article-title"><a href="https://news.google.com/rss/articles/CBMizAFBVV95cUxOb3JiZDJCV0puUXJHRm1GNU1HdnFvaExmNjBiM0poYk9GNmlDMF9VU1hSVFB0dTlKUVQyQnh3TTYtNFhZWFFQa3M1WHdlblpROU93aG5SNDNpYllvWGJEUjBWRWZSU0Nsa1RJVDN6S18yd3RCLVBLR0M4ZFcwYnhOOVMyeWdFYzlESG5xTHJsVXZWNjNTT3YyQ0l2Q1ZPYlZ5b2ExcUVwczEzUkdkM2ZvcnBMdk5IeGJnMEF2XzN4VzliQ0dsUHBsOGRMVVg?oc=5" target="_blank">Patagonia: las tierras del grupo Benetton pasaron a manos de Adecoagro/Tether - La Nueva Provincia</a></div>
+    <div class="article-meta">
+      <span class="article-time">Tue, 03 Nov 2026 12:27:25 GMT &middot; La Nueva Provincia</span>
+      <span class="badge badge-neu">Neutro</span>
+      <span class="badge badge-adec">ADECOAGRO</span>
+    </div>
+    
+    <a href="https://news.google.com/rss/articles/CBMizAFBVV95cUxOb3JiZDJCV0puUXJHRm1GNU1HdnFvaExmNjBiM0poYk9GNmlDMF9VU1hSVFB0dTlKUVQyQnh3TTYtNFhZWFFQa3M1WHdlblpROU93aG5SNDNpYllvWGJEUjBWRWZSU0Nsa1RJVDN6S18yd3RCLVBLR0M4ZFcwYnhOOVMyeWdFYzlESG5xTHJsVXZWNjNTT3YyQ0l2Q1ZPYlZ5b2ExcUVwczEzUkdkM2ZvcnBMdk5IeGJnMEF2XzN4VzliQ0dsUHBsOGRMVVg?oc=5" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://news.google.com/rss/articles/CBMizAFBVV95cUxOb3JiZDJCV0puUXJHRm1GNU1HdnFvaExmNjBiM0poYk9GNmlDMF9VU1hSVFB0dTlKUVQyQnh3TTYtNFhZWFFQa3M1WHdlblpROU93aG5SNDNpYllvWGJEUjBWRWZSU0Nsa1RJVDN6S18yd3RCLVBLR0M4ZFcwYnhOOVMyeWdFYzlESG5xTHJsVXZWNjNTT3YyQ0l2Q1ZPYlZ5b2ExcUVwczEzUkdkM2ZvcnBMdk5IeGJnMEF2XzN4VzliQ0dsUHBsOGRMVVg?oc=5" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://news.google.com/rss/articles/CBMizAFBVV95cUxOb3JiZDJCV0puUXJHRm1GNU1HdnFvaExmNjBiM0poYk9GNmlDMF9VU1hSVFB0dTlKUVQyQnh3TTYtNFhZWFFQa3M1WHdlblpROU93aG5SNDNpYllvWGJEUjBWRWZSU0Nsa1RJVDN6S18yd3RCLVBLR0M4ZFcwYnhOOVMyeWdFYzlESG5xTHJsVXZWNjNTT3YyQ0l2Q1ZPYlZ5b2ExcUVwczEzUkdkM2ZvcnBMdk5IeGJnMEF2XzN4VzliQ0dsUHBsOGRMVVg?oc=5" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li></ul>
+      </div>
+    </details>
+
+  </section>
+
+  <section class="section" id="sec-social">
+    <div class="section-header">
+      <span class="section-icon">&#128241;</span>
+      <h2 class="section-title">Redes Sociales</h2>
+      <span class="section-count">2 menciones</span>
+    </div>
+    <div class="summary-card">Se registró actividad en redes sociales con cobertura de la megaoperación de Adecoagro. Instagram y Facebook amplificaron la noticia sobre la compra de tierras de Benetton, generando alcance comunitario sobre esta transacción de magnitud estratégica para la empresa.</div>
+        <div class="dashboard-row">
+      <div class="chart-card">
+        <div class="chart-card-title">Menciones por Red Social</div>
+        <div class="treemap-container"><canvas id="chartTreemap"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Sentimiento en Redes</div>
+        <div class="chart-container"><canvas id="chartSocSent"></canvas></div>
+      </div>
+    </div>
+    <details class="accordion" style="margin-top:20px">
+      <summary>Ver 2 menciones <span class="accordion-arrow">&#9660;</span></summary>
+      <div class="accordion-body">
+        <div class="filter-bar">
+          <button class="filter-btn filter-btn-all active" onclick="filtrar('soc','all',this)">Todos (2)</button>
+          
+          <button class="filter-btn filter-btn-neu" onclick="filtrar('soc','neutro',this)">Neutro (2)</button>
+          
+        </div>
+        <ul class="article-list"><li class="article-item" data-sentimiento="neutro" data-prefix="soc" style="border-left-color:#E1306C">
+    <div class="article-title"><a href="https://www.instagram.com/p/DfP1iShIBUd/" target="_blank" style="color:#E1306C">LOS SOCIOS DE ADECOAGRO COMPRARON LAS ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">19 hours ago</span>
+      <span class="platform-tag" style="background:#E1306C">Instagram</span>
+      <span class="badge badge-neu">Neutro</span>
+    </div>
+    <a href="https://www.instagram.com/p/DfP1iShIBUd/" target="_blank" class="article-link" style="color:#E1306C">Ver en Instagram &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.instagram.com/p/DfP1iShIBUd/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.instagram.com/p/DfP1iShIBUd/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="soc" style="border-left-color:#1877F2">
+    <div class="article-title"><a href="https://www.facebook.com/lanacionmas/posts/-adecoagro-compr%C3%B3-las-tierras-de-benetton-en-argentina-el-grupo-inversor-argenti/1469133952028194/" target="_blank" style="color:#1877F2">Adecoagro compró las tierras de Benetton en Argentina El ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">17 hours ago</span>
+      <span class="platform-tag" style="background:#1877F2">Facebook</span>
+      <span class="badge badge-neu">Neutro</span>
+    </div>
+    <a href="https://www.facebook.com/lanacionmas/posts/-adecoagro-compr%C3%B3-las-tierras-de-benetton-en-argentina-el-grupo-inversor-argenti/1469133952028194/" target="_blank" class="article-link" style="color:#1877F2">Ver en Facebook &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.facebook.com/lanacionmas/posts/-adecoagro-compr%C3%B3-las-tierras-de-benetton-en-argentina-el-grupo-inversor-argenti/1469133952028194/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.facebook.com/lanacionmas/posts/-adecoagro-compr%C3%B3-las-tierras-de-benetton-en-argentina-el-grupo-inversor-argenti/1469133952028194/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li></ul>
+      </div>
+    </details>
+
+  </section>
+
+  <section class="section" id="sec-empresas">
+    <div class="section-header">
+      <span class="section-icon">&#127970;</span>
+      <h2 class="section-title">Empresas Asociadas</h2>
+      <span class="section-count">1 art&iacute;culos &middot; 1 empresas</span>
+    </div>
+    <div class="summary-card">Empresas asociadas muestran desempeño mixto. Se reportó que una compañía generó ingresos operacionales por ARS 78.92 billones, reflejando solidez financiera, mientras que La Verdadera Argentina S.A., operadora láctea, mantiene presencia en el radar empresarial sin movimientos destacados en el período.</div>
+        <div class="dashboard-row">
+      <div class="chart-card">
+        <div class="chart-card-title">Distribuci&oacute;n de Sentimiento</div>
+        <div class="chart-container"><canvas id="chartEmpSent"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Empresas con Cobertura</div>
+        <div class="chart-container"><canvas id="chartEmpVol"></canvas></div>
+      </div>
+    </div>
+    <div style="margin-top:8px"><details class="empresa-accordion">
+    <summary>
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--neu);display:inline-block;flex-shrink:0"></span>
+      <span class="empresa-name">la lacteo</span>
+      <span class="empresa-badge">1 art.</span>
+    </summary>
+    <div style="padding:14px 18px">
+      <ul class="article-list">
+        <li class="article-item" data-sentimiento="neutro" data-prefix="emp">
+    <div class="article-title"><a href="https://www.emis.com/php/company-profile/AR/La_Verdadera_Argentina_SA_es_22594647.html" target="_blank">La Verdadera Argentina S.A. Perfil de Compañía</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 23 horas &middot; EMIS</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    
+    <a href="https://www.emis.com/php/company-profile/AR/La_Verdadera_Argentina_SA_es_22594647.html" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.emis.com/php/company-profile/AR/La_Verdadera_Argentina_SA_es_22594647.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.emis.com/php/company-profile/AR/La_Verdadera_Argentina_SA_es_22594647.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li>
+      </ul>
+    </div>
+  </details></div>
+  </section>
+
+
+  <section class="section" id="sec-sector">
+    <div class="section-header">
+      <span class="section-icon">&#127807;</span>
+      <h2 class="section-title">Sector Agro</h2>
+      <span class="section-count">32 art&iacute;culos</span>
+    </div>
+    <div class="summary-card">El sector agropecuario exhibe volatilidad operativa y de precios. Molinos Río de la Plata concretó la venta de su complejo rosarino y adquirió una fábrica de galletitas en Tucumán; sin embargo, presiones estructurales persisten: caída de precios de hacienda (4.110 pesos/kg tras 7 meses de baja), advertencias del Banco Mundial sobre suba de precios de alimentos y fertilizantes (hasta 28%), y desafíos fitosanitarios como el fusarium en trigos. En contraparte, iniciativas positivas incluyen Santa Fe con $38.342 millones en inversión vial rural, 40 emprendimientos Agro 4.0, y campañas cerealeras activas con trigo a $600.000/tonelada. La disponibilidad crediticia se torna restrictiva según consultores del sector.</div>
+    <div class="dashboard-row">
+      <div class="chart-card">
+        <div class="chart-card-title">Distribuci&oacute;n de Sentimiento</div>
+        <div class="chart-container"><canvas id="chartSecSent"></canvas></div>
+      </div>
+    </div>
+    <details class="accordion" style="margin-top:20px">
+      <summary>Ver 32 art&iacute;culos <span class="accordion-arrow">&#9660;</span></summary>
+      <div class="accordion-body">
+        <div class="filter-bar">
+          <button class="filter-btn filter-btn-all active" onclick="filtrar('sec','all',this)">Todos (32)</button>
+          <button class="filter-btn filter-btn-pos" onclick="filtrar('sec','positivo',this)">Positivo (12)</button>
+          <button class="filter-btn filter-btn-neu" onclick="filtrar('sec','neutro',this)">Neutro (6)</button>
+          <button class="filter-btn filter-btn-neg" onclick="filtrar('sec','negativo',this)">Negativo (14)</button>
+        </div>
+        <ul class="article-list"><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://bichosdecampo.com/doblete-molinos-concreto-la-venta-del-complejo-rosarino-santa-clara-y-oficializo-la-compra-de-una-fabrica-de-galletitas-en-tucuman/" target="_blank">Doblete: Molinos concretó la venta del complejo rosarino Santa Clara y oficializó la compra de una fábrica de galletitas en Tucumán</a></div>
+    <div class="article-meta">
+      <span class="article-time">Tue, 03 Nov 2026 02:40:04 +0000 &middot; Bichos de Campo</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://bichosdecampo.com/doblete-molinos-concreto-la-venta-del-complejo-rosarino-santa-clara-y-oficializo-la-compra-de-una-fabrica-de-galletitas-en-tucuman/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://bichosdecampo.com/doblete-molinos-concreto-la-venta-del-complejo-rosarino-santa-clara-y-oficializo-la-compra-de-una-fabrica-de-galletitas-en-tucuman/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://bichosdecampo.com/doblete-molinos-concreto-la-venta-del-complejo-rosarino-santa-clara-y-oficializo-la-compra-de-una-fabrica-de-galletitas-en-tucuman/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://tendenciadenoticias.com.ar/portalcana/yerba-mate-girasol-y-limon-los-productos-destacados-del-ranking-exportador-argentino" target="_blank">Yerba mate, girasol y limón: los productos destacados del ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 14 horas &middot; Tendencia de Noticias</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://tendenciadenoticias.com.ar/portalcana/yerba-mate-girasol-y-limon-los-productos-destacados-del-ranking-exportador-argentino" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://tendenciadenoticias.com.ar/portalcana/yerba-mate-girasol-y-limon-los-productos-destacados-del-ranking-exportador-argentino" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://tendenciadenoticias.com.ar/portalcana/yerba-mate-girasol-y-limon-los-productos-destacados-del-ranking-exportador-argentino" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.perfil.com/economia/sectores/agropecuario/trigo" target="_blank">Notas sobre Trigo</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 9 horas &middot; Perfil</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.perfil.com/economia/sectores/agropecuario/trigo" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.perfil.com/economia/sectores/agropecuario/trigo" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.perfil.com/economia/sectores/agropecuario/trigo" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://ruralnet.com.ar/santa-fe-inmobiliario-rural-2027/" target="_blank">Santa Fe destinará $38.342 millones a caminos rurales</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 23 horas &middot; RuralNet</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://ruralnet.com.ar/santa-fe-inmobiliario-rural-2027/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://ruralnet.com.ar/santa-fe-inmobiliario-rural-2027/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://ruralnet.com.ar/santa-fe-inmobiliario-rural-2027/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.forbesargentina.com/negocios/agronegocios-40-emprendimientos-detras-ola-digital-transforma-comercializacion-campo-argentino-n101620" target="_blank">Agronegocios 4.0: los emprendimientos detrás de la ola ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 3 horas &middot; Forbes Argentina</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.forbesargentina.com/negocios/agronegocios-40-emprendimientos-detras-ola-digital-transforma-comercializacion-campo-argentino-n101620" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.forbesargentina.com/negocios/agronegocios-40-emprendimientos-detras-ola-digital-transforma-comercializacion-campo-argentino-n101620" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.forbesargentina.com/negocios/agronegocios-40-emprendimientos-detras-ola-digital-transforma-comercializacion-campo-argentino-n101620" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.cronista.com/infotechnology/mundo-cio/ezequiel-naya-de-syngenta-transformar-el-agro-con-ia-y-datos/" target="_blank">Ezequiel Naya, de Syngenta: transformar el agro con IA y datos</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T11:50:30.476Z &middot; Cronista</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.cronista.com/infotechnology/mundo-cio/ezequiel-naya-de-syngenta-transformar-el-agro-con-ia-y-datos/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.cronista.com/infotechnology/mundo-cio/ezequiel-naya-de-syngenta-transformar-el-agro-con-ia-y-datos/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.cronista.com/infotechnology/mundo-cio/ezequiel-naya-de-syngenta-transformar-el-agro-con-ia-y-datos/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/maquinaria-agricola-argentina-camino-muestra-internacional-eima-2026-mano-expoagro_0_63WkQvro7U.html" target="_blank">La maquinaria agrícola argentina camino a la muestra internacional EIMA 2026 de la mano de Expoagro</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T13:00:20Z &middot; Clarín</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/maquinaria-agricola-argentina-camino-muestra-internacional-eima-2026-mano-expoagro_0_63WkQvro7U.html" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/maquinaria-agricola-argentina-camino-muestra-internacional-eima-2026-mano-expoagro_0_63WkQvro7U.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/maquinaria-agricola-argentina-camino-muestra-internacional-eima-2026-mano-expoagro_0_63WkQvro7U.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/remato-primer-lote-trigo-cordoba-pago-600000-tonelada-dio-inicio-campana-comercial-cereal_0_4ZoXd3CBeO.html" target="_blank">Se remató el primer lote de trigo: en Córdoba, se pagó más de $600.000 la tonelada y se dio inició a la campaña comercial del cereal</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T12:37:16Z &middot; Clarín</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/remato-primer-lote-trigo-cordoba-pago-600000-tonelada-dio-inicio-campana-comercial-cereal_0_4ZoXd3CBeO.html" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/remato-primer-lote-trigo-cordoba-pago-600000-tonelada-dio-inicio-campana-comercial-cereal_0_4ZoXd3CBeO.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/remato-primer-lote-trigo-cordoba-pago-600000-tonelada-dio-inicio-campana-comercial-cereal_0_4ZoXd3CBeO.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/el-renatre-ya-certifico-a-17-empresas-por-sus-practicas-laborales-y-otras-15-buscan-obtener-el-sello-nid02112026/" target="_blank">El Renatre ya certificó a 17 empresas por sus prácticas laborales y otras 15 buscan obtener el sello</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T22:55:51.823Z &middot; La Nación</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/el-renatre-ya-certifico-a-17-empresas-por-sus-practicas-laborales-y-otras-15-buscan-obtener-el-sello-nid02112026/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/el-renatre-ya-certifico-a-17-empresas-por-sus-practicas-laborales-y-otras-15-buscan-obtener-el-sello-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/el-renatre-ya-certifico-a-17-empresas-por-sus-practicas-laborales-y-otras-15-buscan-obtener-el-sello-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/visec-tras-un-reclamo-los-acopiadores-podran-habilitar-sin-cargo-sus-plantas-para-operar-con-el-nid02112026/" target="_blank">Visec: tras un reclamo, los acopiadores podrán habilitar sin cargo sus plantas para operar con el sistema de trazabilidad</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T22:02:56.89Z &middot; La Nación</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/visec-tras-un-reclamo-los-acopiadores-podran-habilitar-sin-cargo-sus-plantas-para-operar-con-el-nid02112026/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/visec-tras-un-reclamo-los-acopiadores-podran-habilitar-sin-cargo-sus-plantas-para-operar-con-el-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/visec-tras-un-reclamo-los-acopiadores-podran-habilitar-sin-cargo-sus-plantas-para-operar-con-el-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/que-sale/margarita-en-vivo-suma-una-tercera-fecha-en-el-campo-argentino-de-polo-cuando-salen-a-la-venta-las-nid02112026/" target="_blank">Margarita en Vivo suma una tercera fecha en el Campo Argentino de Polo: cuándo salen a la venta las entradas</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T20:04:09.808Z &middot; La Nación</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/que-sale/margarita-en-vivo-suma-una-tercera-fecha-en-el-campo-argentino-de-polo-cuando-salen-a-la-venta-las-nid02112026/" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/que-sale/margarita-en-vivo-suma-una-tercera-fecha-en-el-campo-argentino-de-polo-cuando-salen-a-la-venta-las-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/que-sale/margarita-en-vivo-suma-una-tercera-fecha-en-el-campo-argentino-de-polo-cuando-salen-a-la-venta-las-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="positivo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.iprofesional.com/negocios/468169-duena-de-molfino-y-la-paulina-busca-reactivar-lacteos-veronica" target="_blank">Dueña de Molfino y La Paulina busca reactivar Lácteos Verónica</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T09:43:00-03:00 &middot; iProfesional</span>
+      <span class="badge badge-pos">Positivo</span>
+      
+    </div>
+    
+    <a href="https://www.iprofesional.com/negocios/468169-duena-de-molfino-y-la-paulina-busca-reactivar-lacteos-veronica" target="_blank" class="article-link" style="color:var(--pos)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.iprofesional.com/negocios/468169-duena-de-molfino-y-la-paulina-busca-reactivar-lacteos-veronica" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.iprofesional.com/negocios/468169-duena-de-molfino-y-la-paulina-busca-reactivar-lacteos-veronica" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/esta-en-rosario-molinos-rio-de-la-plata-concreto-la-venta-de-parte-de-un-historico-complejo-nid02112026/" target="_blank">Está en Rosario: Molinos Río de la Plata concretó la venta de parte de un histórico complejo industrial</a></div>
+    <div class="article-meta">
+      <span class="article-time">Mon, 02 Nov 2026 21:33:38 +0000 &middot; La Nación</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.lanacion.com.ar/economia/campo/esta-en-rosario-molinos-rio-de-la-plata-concreto-la-venta-de-parte-de-un-historico-complejo-nid02112026/" target="_blank" style="color:var(--text-3);text-decoration:underline">LA NACION</a></div>
+    <a href="https://www.lanacion.com.ar/economia/campo/esta-en-rosario-molinos-rio-de-la-plata-concreto-la-venta-de-parte-de-un-historico-complejo-nid02112026/" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/esta-en-rosario-molinos-rio-de-la-plata-concreto-la-venta-de-parte-de-un-historico-complejo-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/esta-en-rosario-molinos-rio-de-la-plata-concreto-la-venta-de-parte-de-un-historico-complejo-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.agrolatam.com/agricultura-latam/paraguay-apuesta-por-una-soja-mas-productiva-en-el-chaco-que-limita-sus-rendimientos/" target="_blank">Paraguay apuesta por una soja más productiva en el Chaco</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 15 horas &middot; AgroLatam</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    
+    <a href="https://www.agrolatam.com/agricultura-latam/paraguay-apuesta-por-una-soja-mas-productiva-en-el-chaco-que-limita-sus-rendimientos/" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.agrolatam.com/agricultura-latam/paraguay-apuesta-por-una-soja-mas-productiva-en-el-chaco-que-limita-sus-rendimientos/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.agrolatam.com/agricultura-latam/paraguay-apuesta-por-una-soja-mas-productiva-en-el-chaco-que-limita-sus-rendimientos/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/mesa-enlace-participara-encuentro-papa-leon-xiv-empresarios-sindicalistas-argentina_0_qMbmo1MmCo.html" target="_blank">La Mesa de Enlace participará  encuentro del papa León XIV con empresarios y sindicalistas en la Argentina</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T22:23:54Z &middot; Clarín</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.lanacion.com.ar/economia/campo/la-mesa-de-enlace-participara-de-un-encuentro-con-leon-xiv-junto-a-sindicalistas-y-empresarios-nid02112026/" target="_blank" style="color:var(--text-3);text-decoration:underline">LA NACION</a> &middot; <a href="https://tn.com.ar/campo/2026/11/03/la-mesa-de-enlace-de-campo-participara-del-encuentro-con-el-papa-leon-xiv-en-la-uca/" target="_blank" style="color:var(--text-3);text-decoration:underline">Todo Noticias</a></div>
+    <a href="https://www.clarin.com/rural/mesa-enlace-participara-encuentro-papa-leon-xiv-empresarios-sindicalistas-argentina_0_qMbmo1MmCo.html" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/mesa-enlace-participara-encuentro-papa-leon-xiv-empresarios-sindicalistas-argentina_0_qMbmo1MmCo.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/mesa-enlace-participara-encuentro-papa-leon-xiv-empresarios-sindicalistas-argentina_0_qMbmo1MmCo.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/maiz-tardio-por-que-la-nutricion-es-clave-ante-un-escenario-nino-nid03112026/" target="_blank">Maíz tardío: por qué la nutrición es clave ante un escenario Niño</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T03:00:00Z &middot; La Nación</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/maiz-tardio-por-que-la-nutricion-es-clave-ante-un-escenario-nino-nid03112026/" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/maiz-tardio-por-que-la-nutricion-es-clave-ante-un-escenario-nino-nid03112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/maiz-tardio-por-que-la-nutricion-es-clave-ante-un-escenario-nino-nid03112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/sociedad/que-beneficios-puede-aportar-el-yogur-griego-a-la-salud-intestinal-nid02112026/" target="_blank">Qué beneficios puede aportar el yogur griego a la salud intestinal</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T21:00:00Z &middot; La Nación</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/sociedad/que-beneficios-puede-aportar-el-yogur-griego-a-la-salud-intestinal-nid02112026/" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/sociedad/que-beneficios-puede-aportar-el-yogur-griego-a-la-salud-intestinal-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/sociedad/que-beneficios-puede-aportar-el-yogur-griego-a-la-salud-intestinal-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="neutro" data-prefix="sec">
+    <div class="article-title"><a href="https://www.iprofesional.com/impuestos/468167-arca-implementa-el-uso-obligatorio-del-sire-para-retenciones-y-percepciones-de-iva" target="_blank">ARCA implementa el uso obligatorio del SIRE para retenciones y percepciones de IVA</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T09:39:00-03:00 &middot; iProfesional</span>
+      <span class="badge badge-neu">Neutro</span>
+      
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.cronista.com/economia-politica/atencion-contribuyentes-el-cambio-de-arca-para-las-retenciones-y-percepciones-de-iva/" target="_blank" style="color:var(--text-3);text-decoration:underline">El Cronista</a></div>
+    <a href="https://www.iprofesional.com/impuestos/468167-arca-implementa-el-uso-obligatorio-del-sire-para-retenciones-y-percepciones-de-iva" target="_blank" class="article-link" style="color:var(--neu)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.iprofesional.com/impuestos/468167-arca-implementa-el-uso-obligatorio-del-sire-para-retenciones-y-percepciones-de-iva" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.iprofesional.com/impuestos/468167-arca-implementa-el-uso-obligatorio-del-sire-para-retenciones-y-percepciones-de-iva" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.zafranet.com/noticias/conadesuca-advierte-posibles-lluvias-al-inicio-de-zafra-2026-27-en-11-ingenios/" target="_blank">Conadesuca advierte posibles lluvias al inicio de zafra ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 5 horas &middot; Zafranet</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.zafranet.com/noticias/conadesuca-advierte-posibles-lluvias-al-inicio-de-zafra-2026-27-en-11-ingenios/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.zafranet.com/noticias/conadesuca-advierte-posibles-lluvias-al-inicio-de-zafra-2026-27-en-11-ingenios/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.zafranet.com/noticias/conadesuca-advierte-posibles-lluvias-al-inicio-de-zafra-2026-27-en-11-ingenios/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://bichosdecampo.com/siete-meses-en-baja-y-sin-senales-de-piso-caen-los-precios-de-la-hacienda-para-faena-y-tambien-de-la-invernada/" target="_blank">Siete meses en baja y sin señales de piso: Caen los ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 20 horas &middot; Bichos de Campo</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://bichosdecampo.com/siete-meses-en-baja-y-sin-senales-de-piso-caen-los-precios-de-la-hacienda-para-faena-y-tambien-de-la-invernada/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://bichosdecampo.com/siete-meses-en-baja-y-sin-senales-de-piso-caen-los-precios-de-la-hacienda-para-faena-y-tambien-de-la-invernada/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://bichosdecampo.com/siete-meses-en-baja-y-sin-senales-de-piso-caen-los-precios-de-la-hacienda-para-faena-y-tambien-de-la-invernada/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.ambito.com/economia/el-banco-mundial-advierte-fuertes-subas-28-los-precios-alimentos-y-fertilizantes-2026-n6340813/amp" target="_blank">El Banco Mundial advierte sobre fuertes subas de hasta 28 ...</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 2 horas &middot; Ámbito</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    <div class="article-meta" style="margin-top:4px;font-size:0.78em;color:var(--text-3)">Tambi&eacute;n en: <a href="https://www.ambito.com/economia/el-banco-mundial-advierte-fuertes-subas-28-los-precios-alimentos-y-fertilizantes-2026-n6340813" target="_blank" style="color:var(--text-3);text-decoration:underline">ámbito.com</a></div>
+    <a href="https://www.ambito.com/economia/el-banco-mundial-advierte-fuertes-subas-28-los-precios-alimentos-y-fertilizantes-2026-n6340813/amp" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.ambito.com/economia/el-banco-mundial-advierte-fuertes-subas-28-los-precios-alimentos-y-fertilizantes-2026-n6340813/amp" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.ambito.com/economia/el-banco-mundial-advierte-fuertes-subas-28-los-precios-alimentos-y-fertilizantes-2026-n6340813/amp" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.contextoganadero.com/columna/mision-crecer-como-producir-mas-si-producir-costara-mas" target="_blank">Misión Crecer: ¿cómo producir más si producir costará más?</a></div>
+    <div class="article-meta">
+      <span class="article-time">hace 7 horas &middot; Contexto Ganadero</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.contextoganadero.com/columna/mision-crecer-como-producir-mas-si-producir-costara-mas" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.contextoganadero.com/columna/mision-crecer-como-producir-mas-si-producir-costara-mas" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.contextoganadero.com/columna/mision-crecer-como-producir-mas-si-producir-costara-mas" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/paso-fuerte-despidos-plantium-situacion-critica-acordo-pago-empleados-busca-reinventarse_0_xrlRZKQkuO.html" target="_blank">"Nunca me pasó algo tan fuerte": tras los despidos, Plantium, en situación crítica, acordó el pago a empleados y busca reinventarse</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T12:18:09Z &middot; Clarín</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/paso-fuerte-despidos-plantium-situacion-critica-acordo-pago-empleados-busca-reinventarse_0_xrlRZKQkuO.html" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/paso-fuerte-despidos-plantium-situacion-critica-acordo-pago-empleados-busca-reinventarse_0_xrlRZKQkuO.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/paso-fuerte-despidos-plantium-situacion-critica-acordo-pago-empleados-busca-reinventarse_0_xrlRZKQkuO.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/escenario-cambiante-precios-costos-alza-comenzo-siembra-soja-nivel-nacional_0_dYj3Xk2cpc.html" target="_blank">Con un escenario cambiante de precios y costos al alza, comenzó la siembra de soja a nivel nacional</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T09:10:08Z &middot; Clarín</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/escenario-cambiante-precios-costos-alza-comenzo-siembra-soja-nivel-nacional_0_dYj3Xk2cpc.html" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/escenario-cambiante-precios-costos-alza-comenzo-siembra-soja-nivel-nacional_0_dYj3Xk2cpc.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/escenario-cambiante-precios-costos-alza-comenzo-siembra-soja-nivel-nacional_0_dYj3Xk2cpc.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/fusarium-gran-obstaculo-hongo-aparecio-incidencia-severidad-trigos-zona-nucleo_0_y5TVvtwvLo.html" target="_blank">Fusarium, "un gran obstáculo": el hongo apareció con incidencia y severidad en los trigos de la zona núcleo</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T09:00:06Z &middot; Clarín</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/fusarium-gran-obstaculo-hongo-aparecio-incidencia-severidad-trigos-zona-nucleo_0_y5TVvtwvLo.html" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/fusarium-gran-obstaculo-hongo-aparecio-incidencia-severidad-trigos-zona-nucleo_0_y5TVvtwvLo.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/fusarium-gran-obstaculo-hongo-aparecio-incidencia-severidad-trigos-zona-nucleo_0_y5TVvtwvLo.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.clarin.com/rural/ganaderia-bovina-medidas-sanitarias-exceso-hidrico_0_VF3JdgHiG6.html" target="_blank">Ganadería bovina: medidas sanitarias ante el exceso hídrico</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T19:11:14Z &middot; Clarín</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.clarin.com/rural/ganaderia-bovina-medidas-sanitarias-exceso-hidrico_0_VF3JdgHiG6.html" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.clarin.com/rural/ganaderia-bovina-medidas-sanitarias-exceso-hidrico_0_VF3JdgHiG6.html" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.clarin.com/rural/ganaderia-bovina-medidas-sanitarias-exceso-hidrico_0_VF3JdgHiG6.html" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/teo-zorraquin-consultor-sobre-el-momento-del-agro-se-necesita-financiamiento-y-se-toma-pero-pateando-nid03112026/" target="_blank">Teo Zorraquín, consultor, sobre el momento del agro: “Se necesita financiamiento y se toma, pero pateando compras, postergando gastos o inversiones”</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T09:30:00Z &middot; La Nación</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/teo-zorraquin-consultor-sobre-el-momento-del-agro-se-necesita-financiamiento-y-se-toma-pero-pateando-nid03112026/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/teo-zorraquin-consultor-sobre-el-momento-del-agro-se-necesita-financiamiento-y-se-toma-pero-pateando-nid03112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/teo-zorraquin-consultor-sobre-el-momento-del-agro-se-necesita-financiamiento-y-se-toma-pero-pateando-nid03112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/retroceso-la-produccion-porcina-argentina-registra-una-fuerte-baja-de-la-rentabilidad-nid03112026/" target="_blank">Momento complejo: la producción porcina argentina registra una fuerte baja de la rentabilidad</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-03T09:30:00Z &middot; La Nación</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/retroceso-la-produccion-porcina-argentina-registra-una-fuerte-baja-de-la-rentabilidad-nid03112026/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/retroceso-la-produccion-porcina-argentina-registra-una-fuerte-baja-de-la-rentabilidad-nid03112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/retroceso-la-produccion-porcina-argentina-registra-una-fuerte-baja-de-la-rentabilidad-nid03112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/tension-en-pauny-el-gremio-se-movilizo-y-advierte-sobre-mas-protestas-en-la-principal-fabrica-nid02112026/" target="_blank">Tiene 450 empleados: la UOM se movilizó y advierte sobre más protestas en Pauny, la principal fábrica nacional de tractores</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T19:57:15.546Z &middot; La Nación</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/tension-en-pauny-el-gremio-se-movilizo-y-advierte-sobre-mas-protestas-en-la-principal-fabrica-nid02112026/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/tension-en-pauny-el-gremio-se-movilizo-y-advierte-sobre-mas-protestas-en-la-principal-fabrica-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/tension-en-pauny-el-gremio-se-movilizo-y-advierte-sobre-mas-protestas-en-la-principal-fabrica-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://www.lanacion.com.ar/economia/campo/dolares-pese-al-record-de-octubre-en-2026-las-cerealeras-ingresarian-con-us28200-millones-un-10-nid02112026/" target="_blank">Dólares: pese al récord de octubre, en 2026 las cerealeras ingresarán, con US$28.200 millones, un 10% menos que el año pasado</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T21:05:05.68Z &middot; La Nación</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://www.lanacion.com.ar/economia/campo/dolares-pese-al-record-de-octubre-en-2026-las-cerealeras-ingresarian-con-us28200-millones-un-10-nid02112026/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://www.lanacion.com.ar/economia/campo/dolares-pese-al-record-de-octubre-en-2026-las-cerealeras-ingresarian-con-us28200-millones-un-10-nid02112026/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://www.lanacion.com.ar/economia/campo/dolares-pese-al-record-de-octubre-en-2026-las-cerealeras-ingresarian-con-us28200-millones-un-10-nid02112026/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://tn.com.ar/campo/2026/11/02/la-soja-tuvo-una-rueda-bajista-en-chicago-pero-se-mantuvo-en-545000-por-tonelada-en-rosario/" target="_blank">La soja tuvo una rueda bajista en Chicago, pero se mantuvo en $545.000 por tonelada en Rosario</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T19:41:23-03:00 &middot; TN</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://tn.com.ar/campo/2026/11/02/la-soja-tuvo-una-rueda-bajista-en-chicago-pero-se-mantuvo-en-545000-por-tonelada-en-rosario/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://tn.com.ar/campo/2026/11/02/la-soja-tuvo-una-rueda-bajista-en-chicago-pero-se-mantuvo-en-545000-por-tonelada-en-rosario/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://tn.com.ar/campo/2026/11/02/la-soja-tuvo-una-rueda-bajista-en-chicago-pero-se-mantuvo-en-545000-por-tonelada-en-rosario/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li><li class="article-item" data-sentimiento="negativo" data-prefix="sec">
+    <div class="article-title"><a href="https://tn.com.ar/campo/2026/11/02/una-fabrica-de-tecnologia-agricola-desvinculo-a-100-trabajadores-por-menores-ventas-y-deudas-de-sus-clientes/" target="_blank">Una fábrica de tecnología agrícola desvinculó a 100 trabajadores por menores ventas y deudas de sus clientes</a></div>
+    <div class="article-meta">
+      <span class="article-time">2026-11-02T18:01:34-03:00 &middot; TN</span>
+      <span class="badge badge-neg">Negativo</span>
+      
+    </div>
+    
+    <a href="https://tn.com.ar/campo/2026/11/02/una-fabrica-de-tecnologia-agricola-desvinculo-a-100-trabajadores-por-menores-ventas-y-deudas-de-sus-clientes/" target="_blank" class="article-link" style="color:var(--neg)">Leer noticia &rarr;</a>
+    <div class="feedback-bar">
+  <button class="thumb thumb-up"   data-url="https://tn.com.ar/campo/2026/11/02/una-fabrica-de-tecnologia-agricola-desvinculo-a-100-trabajadores-por-menores-ventas-y-deudas-de-sus-clientes/" onclick="votar(this,'up')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>
+  <button class="thumb thumb-down" data-url="https://tn.com.ar/campo/2026/11/02/una-fabrica-de-tecnologia-agricola-desvinculo-a-100-trabajadores-por-menores-ventas-y-deudas-de-sus-clientes/" onclick="votar(this,'down')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg></button>
+</div>
+  </li></ul>
+      </div>
+    </details>
+  </section>
+
+  <div style="margin-top:64px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7em;color:var(--text-3);letter-spacing:0.06em">ADECOAGRO &mdash; INTELIGENCIA MEDI&Aacute;TICA</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7em;color:var(--text-3)">Generado el 3/11/2026, 10:13:52</div>
+  </div>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.color = '#5A8A6A';
+const LIME = '#D0F921';
+const POS  = '#3FB882';
+const NEU  = '#C9A84C';
+const NEG  = '#E05555';
+const sentColors = [POS, NEU, NEG];
+const donutOpts = () => ({
+  maintainAspectRatio: false, cutout: '65%',
+  plugins: {
+    legend: { position: 'right', labels: { color: '#5A8A6A', font:{size:11}, padding:14, boxWidth:10, boxHeight:10, usePointStyle:true } },
+    datalabels: { color: '#fff', font:{weight:'bold',size:12}, formatter: v => v > 0 ? v : '' }
+  }
+});
+if (document.getElementById('chartWebSent')) {
+  new Chart(document.getElementById('chartWebSent'), {
+    type:'doughnut',
+    data:{ labels:['Positivo','Neutro','Negativo'], datasets:[{ data:[1,8,0], backgroundColor:sentColors, borderWidth:0, hoverOffset:6 }] },
+    options: donutOpts()
+  });
+}
+const fuenteLabels = ["Bloomberg línea","La capital","Forbes argentina","Clarín","Ecos diarios necochea","Punto biz"];
+const fuenteVals   = [1,1,1,1,1,1];
+if (fuenteLabels.length > 0) {
+  new Chart(document.getElementById('chartMarcas'), {
+    type:'bar',
+    data:{ labels:fuenteLabels, datasets:[{ data:fuenteVals, backgroundColor:LIME, barPercentage:0.55 }] },
+    options:{ maintainAspectRatio:false, indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{anchor:'end',align:'end',color:'#5A8A6A',font:{size:11}} }, scales:{ x:{display:false,grace:'20%'}, y:{grid:{display:false},ticks:{color:'#5A8A6A',font:{size:10}}} } }
+  });
+}
+const treeData = [{"v":1,"g":"Instagram"},{"v":1,"g":"Facebook"}];
+const treeBgs  = ["#E1306C","#1877F2"];
+if (treeData.length > 0) {
+  new Chart(document.getElementById('chartTreemap'), {
+    type:'treemap',
+    data:{ datasets:[{ tree:treeData, key:'v', groups:['g'], backgroundColor: ctx => treeBgs[ctx.dataIndex]||'#555', labels:{ display:true, formatter: ctx => ctx.raw.g ? [ctx.raw.g, ctx.raw.v] : '', color:'#fff', font:[{size:13,weight:'bold'},{size:11}] } }] },
+    options:{ maintainAspectRatio:false, plugins:{ legend:{display:false}, datalabels:{display:false} } }
+  });
+}
+if (document.getElementById('chartSocSent')) {
+  new Chart(document.getElementById('chartSocSent'), {
+    type:'doughnut',
+    data:{ labels:['Positivo','Neutro','Negativo'], datasets:[{ data:[0,2,0], backgroundColor:sentColors, borderWidth:0, hoverOffset:6 }] },
+    options: donutOpts()
+  });
+}
+if (document.getElementById('chartSecSent')) {
+  new Chart(document.getElementById('chartSecSent'), {
+    type:'doughnut',
+    data:{ labels:['Positivo','Neutro','Negativo'], datasets:[{ data:[12,6,14], backgroundColor:sentColors, borderWidth:0, hoverOffset:6 }] },
+    options: donutOpts()
+  });
+}
+if (document.getElementById('chartEmpSent')) {
+  new Chart(document.getElementById('chartEmpSent'), {
+    type:'doughnut',
+    data:{ labels:['Positivo','Neutro','Negativo'], datasets:[{ data:[0,1,0], backgroundColor:sentColors, borderWidth:0, hoverOffset:6 }] },
+    options: donutOpts()
+  });
+}
+if (document.getElementById('chartEmpVol')) {
+  const empLabels = ["la lacteo"];
+  const empVals   = [1];
+  new Chart(document.getElementById('chartEmpVol'), {
+    type:'bar',
+    data:{ labels:empLabels, datasets:[{ data:empVals, backgroundColor:LIME, barPercentage:0.5 }] },
+    options:{ maintainAspectRatio:false, indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{anchor:'end',align:'end',color:'#5A8A6A',font:{size:11}} }, scales:{ x:{display:false,grace:'20%'}, y:{grid:{display:false},ticks:{color:'#5A8A6A',font:{size:11}}} } }
+  });
+}
+function filtrar(prefix, sentimiento, btn) {
+  document.querySelectorAll('[data-prefix="'+prefix+'"]').forEach(el => {
+    el.classList.toggle('oculto', sentimiento !== 'all' && el.dataset.sentimiento !== sentimiento);
+  });
+  btn.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+const observer  = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector('.nav-link[href="#'+e.target.id+'"]');
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+<script>
+(function(){
+  // FEEDBACK_ENDPOINT y USER_ID: reemplazados en tiempo de publicacion.
+  // Cuando IT confirme SharePoint/Power Automate, se inyectan valores reales.
+  var FEEDBACK_ENDPOINT = 'PLACEHOLDER_URL';
+  var USER_ID = 'PLACEHOLDER_USER';
+
+  window.votar = async function(btn, voto) {
+    var url = btn.dataset.url;
+    var payload = {
+      url_articulo: url,
+      voto: voto,
+      fecha: new Date().toISOString(),
+      reporte_url: window.location.href,
+      user_id: USER_ID
+    };
+    try {
+      await fetch(FEEDBACK_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      btn.classList.add('voted');
+      btn.parentElement.querySelectorAll('.thumb').forEach(function(b) {
+        if (b !== btn) b.disabled = true;
+      });
+    } catch (e) {
+      btn.textContent = '⚠';
+      btn.title = 'No se pudo enviar el voto (endpoint no configurado aun)';
+    }
+  };
+})();
+</script>
+</body>
+</html>
